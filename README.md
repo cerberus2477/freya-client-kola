@@ -167,7 +167,3 @@ The client will fetch data from the API.
 
 #### **4. Test Integration**
 - Use tools like Postman or browser developer tools to debug and ensure the client is correctly fetching data from the API.
-
----
-
-With these steps, you'll have an API and client that communicate seamlessly! Let me know if you'd like more details on any step.
