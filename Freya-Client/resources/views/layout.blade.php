@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kezelőfelület</title>
+    <title>Freya Client</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
 </head>
@@ -13,11 +13,10 @@
     <nav>
         <ul>
             <li class="nav-left"><a href="{{route('home')}}"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li><a href="{{ route('players.index') }}"><i class="fa-solid fa-user"></i> Players</a></li>
-            <li><a href="{{ route('games.index') }}"><i class="fa-solid fa-gamepad"></i> Games</a></li>
-            <li><a href="{{ route('playergames.index') }}"><i class="fa-solid fa-arrows-left-right"></i> Player
-                    Games</a>
-            </li>
+            <li><a href="{{ route('plants.index') }}"><i class="fa-solid fa-plant"></i> Plants</a></li>
+            <li><a href="{{ route('userplants.index') }}"><i class="fa-solid arrows-left-right"></i> UserPlants</a></li>
+            <li><a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> Users</a></li>
+            <li><a href="#"> Több is lesz még...</a></li>
         </ul>
     </nav>
 
@@ -26,9 +25,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2024.11.14 GameManagementApp Tábor Tünde </p>
+        <p>&copy; 2024.11.14 Freya-Client Tábor Tünde </p>
         <p>A projekt github oldala itt érhető el: <a target="_blank"
-                href="https://github.com/cerberus2477/GameManagamentApp">https://github.com/cerberus2477/GameManagamentApp</a>
+                href="https://github.com/cerberus2477/freya-client-kola">https://github.com/cerberus2477/freya-client-kola</a>
         </p>
     </footer>
 </body>

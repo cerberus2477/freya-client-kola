@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Game Name</th>
+            <th>Name</th>
             <th>Type</th>
             <th>Level Count</th>
             <th>Descripton</th>
@@ -20,18 +20,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($games as $game)
+        @foreach ($entities as $plant)
             <tr>
-                <td>{{ $game->gameID }}</td>
-                <td>{{ $game->name }}</td>
-                <td>{{ $game->type }}</td>
-                <td>{{ $game->levelCount }}</td>
-                <td>{{ $game->description}}</td>
+                <td>{{ $plant->id }}</td>
+                <td>{{ $plant->name }}</td>
+                <td>{{ $plant->type }}</td>
+                <td>{{ $plant->levelCount }}</td>
+                <td>{{ $plant->description}}</td>
                 <td class="actions">
-                    <a href="{{ route('games.edit', $game->gameID) }}" class="btn btn-edit">
+                    <a href="{{ route('games.edit', $plant->gameID) }}" class="btn btn-edit">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <form action="{{ route('games.destroy', $game->gameID) }}" method="POST">
+                    <form action="{{ route('games.destroy', $plant->gameID) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-delete">
