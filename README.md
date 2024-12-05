@@ -15,7 +15,7 @@ The API project will handle the data and logic, exposing it to the client via RE
   ```
 - Configure `.env`:
   - Set up database credentials.
-  - Set `APP_URL` to the API's URL (e.g., `http://api.local`).
+  - Set `API_BASE_URL` to the API's URL (e.g., `http://api.local`).
 
 #### **2. Define Routes**
 - Use `routes/api.php` for defining API routes.

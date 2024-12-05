@@ -12,17 +12,27 @@ class PlantController extends Controller
      * Display a listing of the resource.
      */
 
-    //példa kólától
+    //példa kólától, added error handling
     public function index()
     {
-        $response = Http::freyarest()->get('plants');
-        if ($response->status() != Response::HTTP_OK) {
-            return view('404');
-        }
+        try {
+            $response = Http::freyarest()->get('plants');
+    
+            if ($response->status() != Response::HTTP_OK) {
+                return view('404');
+            }
+    
+            return view('plants.index', ['plants' => $response->json()]);
+            //visszaalakítja a jsont modellekké
+            return view('plants.index', ['plants' => collect($response->json())]);
 
-        return view('plants.index', ['plants' => $response->json()]);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching plants: ' . $e->getMessage());
+            return view('error', ['message' => 'Unable to fetch plants. Please try again later.']);
+        }
     }
 
+    
 
     /**
      * Show the form for creating a new resource.

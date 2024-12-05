@@ -13,8 +13,14 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    // 'api' => [
+    //     'base_url' => env('API_BASE_URL', 'http://localhost:8069/api'),
+    // ],
+
     'api' => [
-        'base_url' => env('API_BASE_URL', 'http://localhost:8069/api'),
+        'base' => [
+            'url' => env('API_BASE_URL', 'http://localhost:8069/api'), // Use a fallback URL
+        ],
     ],
 
     'postmark' => [

@@ -1084,7 +1084,7 @@ readers do not read off random characters that represent icons */
 .fa-cart-plus::before {
   content: "\f217"; }
 
-.fa-gamepad::before {
+.fa-plantpad::before {
   content: "\f11b"; }
 
 .fa-circle-dot::before {
@@ -7482,7 +7482,7 @@ readers do not read off random characters that represent icons */
 .fa-snapchat-ghost:before {
   content: "\f2ab"; }
 
-.fa-fantasy-flight-games:before {
+.fa-fantasy-flight-plants:before {
   content: "\f6dc"; }
 
 .fa-rust:before {

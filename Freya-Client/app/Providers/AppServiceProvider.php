@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Http::macro('freyarest', function () {
-            return Http::baseUrl(config('services.api.url'));
+            return Http::baseUrl(config('services.api.base.url'));   
         });
     }
 
