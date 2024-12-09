@@ -22,7 +22,7 @@ class PlantController extends Controller
                 return view('404');
             }
     
-            return view('plants.index', ['plants' => $response->json()]);
+            // return view('plants.index', ['plants' => $response->json()]);
             //visszaalakítja a jsont modellekké
             return view('plants.index', ['plants' => collect($response->json())]);
 
