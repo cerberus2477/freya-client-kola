@@ -1,0 +1,220 @@
+/* TABLES ------------------------------------------------------------------------------------------------------------------------------------ */
+/* Table styling in dark mode */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--clr-bg-light);
+    /* Use the same background as the nav */
+    color: var(--clr-text);
+    border: 1px solid var(--clr-dark-green);
+    /* Border for the table */
+    margin-bottom: 10rem;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid var(--clr-dark-green);
+    /* Border for table cells */
+}
+
+th {
+    background-color: var(--clr-accent);
+    /* Darker header background */
+    color: var(--clr-text);
+    /* Keep the header text consistent with other text */
+}
+
+td {
+    background-color: var(--clr-bg-light);
+    /* Use the nav background for table cells */
+    color: var(--clr-text);
+}
+
+tbody tr:nth-child(odd) td {
+    background-color: var(--clr-bg);
+    /* Alternate row color for readability */
+}
+
+tbody tr:hover td {
+    /* background-color: var(--clr-border); */
+    background-color: black;
+    /* Highlight row on hover */
+}
+
+.edit,
+tbody tr:nth-child(odd) td.edit {
+    background-color: var(--clr-highlight);
+    color: var(--clr-bg-light);
+}
+
+
+/* FORM ---------------------------------------------------------------------------------------------------------------------------------------------- */
+/* Form Styling */
+form {
+    background-color: var(--clr-bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--clr-dark-green);
+    max-width: 600px;
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+    color: var(--clr-text);
+}
+
+/* Labels */
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--clr-text);
+}
+
+/* Input Fields */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--clr-dark-green);
+    border-radius: 4px;
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
+    font-size: 1rem;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="date"]:focus,
+form input[type="number"]:focus {
+    border-color: var(--clr-accent);
+    outline: none;
+}
+
+/* Submit Button */
+form button[type="submit"] {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--clr-accent);
+    color: var(--clr-text);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: var(--clr-accent);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    form {
+        padding: 1.5rem;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="date"],
+    form input[type="number"] {
+        font-size: 0.9rem;
+    }
+
+    form button[type="submit"] {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+
+/* Styling for the select element to match other inputs */
+form select {
+    width: 100%; /* Full width of the container */
+    padding: 0.8rem; /* Padding for better space inside */
+    margin-bottom: 1.5rem; /* Space below the select */
+    border: 1px solid var(--clr-dark-green); /* Border matching other form elements */
+    border-radius: 4px; /* Rounded corners for consistency */
+    background-color: var(--clr-bg); /* Dark background */
+    color: var(--clr-text); /* Light text for contrast */
+    font-size: 1rem; /* Standard font size */
+    font-family: Arial, sans-serif; /* Consistent font family */
+    appearance: none; /* Remove default dropdown arrow in most browsers */
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition on focus */
+    position: relative; /* To position the custom arrow */
+    padding-right: 2.5rem; /* Space for the custom arrow */
+}
+
+/* Styling for select in focus state */
+form select:focus {
+    border-color: var(--clr-accent); /* Highlight border on focus with the purple theme */
+    box-shadow: 0 0 8px rgba(116, 37, 213, 0.3); /* Subtle glow effect with purple */
+}
+
+/* Custom arrow for the select (matching the theme's purple) */
+form select::-ms-expand {
+    display: none; /* Remove default arrow in Internet Explorer */
+}
+
+form select::after {
+    content: '\25BC'; /* Unicode character for a downwards triangle */
+    font-size: 1.2rem;
+    color: var(--clr-accent); /* Set the color of the arrow to match your purple theme */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%); /* Center the arrow vertically */
+    pointer-events: none; /* Prevent arrow from blocking clicks */
+}
+
+/* Optional: styling for disabled select option */
+form select[disabled] {
+    background-color: var(--clr-bg-light);
+    color: var(--clr-dark-green);
+}
+
+
+/* Styling for textarea to fit the dark theme */
+form textarea {
+    width: 100%; /* Full width of the container */
+    padding: 0.8rem; /* Padding for better space inside */
+    margin-bottom: 1.5rem; /* Space below textarea */
+    border: 1px solid var(--clr-dark-green); /* Border matching other form elements */
+    border-radius: 4px; /* Rounded corners for consistency */
+    background-color: var(--clr-bg); /* Dark background */
+    color: var(--clr-text); /* Light text for contrast */
+    font-size: 1rem; /* Standard font size */
+    font-family: Arial, sans-serif; /* Consistent font family */
+    resize: vertical; /* Allow only vertical resizing */
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition on focus */
+    height: 200px; /* Increase the height to make it taller */
+}
+
+/* Focus state for textarea */
+form textarea:focus {
+    border-color: var(--clr-accent); /* Highlight border on focus */
+    box-shadow: 0 0 8px rgba(116, 37, 213, 0.3); /* Subtle glow effect */
+}
+
+/* Styling for textarea placeholder */
+form textarea::placeholder {
+    color: #aaa; /* Light placeholder color */
+    font-style: italic; /* Italic placeholder text */
+}
+
+
+form p {
+    color: var(--clr-text);
+    font-size: 1rem;
+    margin: 1rem 0;
+    line-height: 1.5;
+}
