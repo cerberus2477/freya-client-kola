@@ -77,7 +77,7 @@ img {
     border-color: var(--clr-text);
 }
 
-.btn-edit,
+/* .btn-edit,
 .btn-delete {
     padding: 1rem !important;
     margin: .5rem !important;
@@ -98,7 +98,7 @@ td.actions form .btn-delete:hover {
 .btn-edit:hover i,
 td.actions form .btn-delete:hover i {
     color: var(--clr-bg) !important;
-}
+} */
 
 td.actions form {
     display: inline;
@@ -212,19 +212,20 @@ main {
 
 header,
 footer {
-    background-color: var(--clr-bg-light);
     padding: 20px;
     text-align: center;
     color: var(--clr-text);
 }
 
 footer {
+    background-color: var(--clr-bg);
     position: absolute;
     bottom: 0;
     width: 100%;
 }
 
 header {
+    background-color: var(--clr-bg-light);
     position: sticky;
 }
 
