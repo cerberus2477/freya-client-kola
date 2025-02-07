@@ -25,6 +25,7 @@
     </main>
 
     <footer>
+        <h1>Freya's Garden</h1>
         <p>&copy; 2024.12.07 Freya-Client Tábor Tünde </p>
         <p>A projekt github oldala itt érhető el: <a href="https://github.com/stars/cerberus2477/lists/freya-s-garden">Freya's Garden Github</a> <a href="https://github.com/OOGGZZII/plamnt">Plamnt</a>
         </p>

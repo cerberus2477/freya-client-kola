@@ -1,8 +1,18 @@
+/* TODO:
+- hero háttér (afterrel, a rudolfosból ki tudom másolni)
+- minden más lmao */
+
+
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
 :root {
     --clr-bg: #fcf6ee;
     --clr-text: #121212;
     --clr-accent: #d15439;
-    --clr-bg-light: #fcf6ee;
+    /* --clr-bg-light: #fcf6ee; */
     --clr-dark-green: rgb(19,45,42);
     --clr-highlight: rgb(113, 147, 242);
     --clr-error: rgb(255, 67, 67);
@@ -19,7 +29,7 @@
 body {
     background-color: var(--clr-bg);
     color: var(--clr-text);
-    font-family: Arial, sans-serif;
+    font-family: "Inter", sans-serif;
     position: relative;
 }
 
@@ -34,32 +44,28 @@ main {
     padding: 5rem;
 }
 
-header,
-footer {
-    padding: 20px;
-    text-align: center;
-    color: var(--clr-text);
-}
 
 footer {
-    background-color: var(--clr-bg);
+    padding: 20px;
+    background-color: var(--clr-text);
+    color: var(--clr-bg);
     position: absolute;
     bottom: 0;
     width: 100%;
 }
 
 header {
-    background-color: var(--clr-bg-light);
+    background-color: var(--clr-bg);
     position: sticky;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 p {
     color: var(--clr-text);
     margin: 20px 0;
-}
+} */
 
 img {
     max-width: 300px;
@@ -127,7 +133,7 @@ img {
 
 /* NAV -----------------------------------------------------------------------------------------------------------------------------------------------------*/
 nav {
-    background-color: var(--clr-bg-light);
+    background-color: var(--clr-bg);
 }
 
 nav ul {
