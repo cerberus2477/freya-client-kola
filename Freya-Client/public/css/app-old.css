@@ -1,0 +1,224 @@
+
+
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+:root {
+    --clr-bg: #fcf6ee;
+    --clr-text: #121212;
+    --clr-accent: #d15439;
+    --clr-green: #486c24;
+    /* --clr-bg-light: #fcf6ee; */
+    --clr-dark-green: rgb(19,45,42);
+    /* --clr-highlight: rgb(113, 147, 242);
+    --clr-error: rgb(255, 67, 67);
+    --clr-success: rgb(12, 211, 38); */
+}
+
+/* Általános dolgok ----------------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
+    font-family: "Inter", sans-serif;
+    position: relative;
+}
+
+body,
+html {
+    padding: 0;
+    margin: auto;
+    min-height: 100vh;
+}
+
+main {
+    padding: 5rem;
+}
+
+
+footer {
+    padding: 20px;
+    background-color: var(--clr-text);
+    color: var(--clr-bg);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+header {
+    background-color: var(--clr-bg);
+    position: sticky;
+}
+
+.header-main {
+    background-image: url("../img/hero1.webp");
+    background-position: top center;
+
+
+    /* justify-content: flex-start;
+    align-items: flex-end;
+    padding: 150px 150px; */
+
+    height: 100vh;
+}
+
+.header-main h1 {
+    font-stretch: narrower;
+    font-size: 3rem;
+}
+
+/* .header-main h1 span {
+    /* text-transform: uppercase; */
+    /* color: black;
+    background-color: var(--clr-white);
+    padding: .5rem;
+    border-radius: 4px; 
+
+    font-family: 'Lobster', cursive;
+    font-size: 5rem;
+    line-height: 1;
+} */
+
+
+.header-main::after {
+    background: var(--clr-black);
+}
+
+
+/* h1,
+h2,
+h3,
+p {
+    color: var(--clr-text);
+    margin: 20px 0;
+} */
+
+img {
+    max-width: 300px;
+}
+
+/* GOMBOK --------------------------------------------------------------------------------------------------------------------------------------- */
+
+.btn {
+    padding: 1.5rem .75rem;
+
+    /* Default button border */
+    border-radius: 4px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+    transition: .2s;
+
+    background-color: var(--clr-dark-green);
+    color: var(--clr-bg);
+    border: 2px solid var(--clr-dark-green);
+}
+
+
+.btn:hover {
+
+    background-color: var(--clr-bg);
+    color: var(--clr-dark-green);
+    border-color: var(--clr-dark-green);
+}
+
+.btn-primary {
+
+    background-color: var(--clr-accent);
+    color: var(--clr-bg);
+    border-color: var(--clr-accent);
+}
+
+.btn-primary:hover {
+    color: var(--clr-accent);
+    border-color: var(--clr-accent);
+}
+
+
+/* ERROR, SUCCESS --------------------------------------------------------------------------------------------------------------------------------- */
+.error {
+    color: var(--clr-error);
+    border: 2px solid var(--clr-error);
+    padding: 2rem;
+}
+
+.error h2, .success h2{
+    margin: 0;
+    color: currentColor;
+}
+.success {
+    color: var(--clr-success);
+    border: 2px solid var(--clr-success);
+    padding: 2rem;
+}
+
+.error, .success{
+    margin-block: 1.5rem;
+}
+
+
+/* NAV -----------------------------------------------------------------------------------------------------------------------------------------------------*/
+nav {
+    background-color: var(--clr-bg);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+nav ul li a {
+    color: var(--clr-text);
+    text-decoration: none;
+    padding: 1rem 2rem;
+    display: block;
+}
+
+/* Hover effect for links */
+nav ul li a:hover {
+    background-color: var(--clr-accent);
+    border-radius: 5px;
+}
+
+.nav-left {
+    margin-right: auto;
+}
+
+.border-left {
+    border-left: 2px solid var(--clr-dark-green);
+}
+
+/* Responsive layout */
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
+
+/* ? */
+
+.title-add h1 {
+    display: inline-block;
+}
+
+.title-add {
+    display: flex;
+    justify-content: space-between;
+}

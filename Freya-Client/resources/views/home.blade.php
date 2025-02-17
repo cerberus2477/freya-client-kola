@@ -1,28 +1,33 @@
 @extends('layout')
 
 @section('content')
-<header>
-    <h1 class="hero-title">Freya's Garden</h1>
-    <p class="hero-text">catchphrase lorem ipsum dolor sit amet</p>
+<!-- the header should have a black overlay (::after)
+the image should look like a typical header image, full width, not repeating -->
+<header class="header-main">
+    <h1 class="header-title">Freya's Garden</h1>
+    <p class="header-text">catchphrase lorem ipsum dolor sit amet</p>
     <button class="btn btn-primary">Letöltés</button>
 </header>
-<!-- this be should page-wide a strip, evenly spaced out -->
+
+
+    <!-- this be should page-wide a strip, evenly spaced out -->
 <!-- number should be big, the description below that and smaller -->
-<main>
     <div class="accomplishments-strip">
         <div>
-            9999999 km3 Megtakarított Co2
+            <span>9999999</span> km3 <br>  Megtakarított Co2
         </div>
         <div>
-            100.000 Regisztrált felhasználó
+            <span>100.000</span> <br> Regisztrált felhasználó
         </div>
         <div>
-            22.000 Eladás/Csere
+            <span>22.000</span> <br>Eladás/Csere
         </div>
         <div>
-            numbers mmmmmhmmmmm fincsi
+            <span>numbers</span> <br> mmmmmhmmmmm fincsi
         </div>
     </div>
+    
+    <main>
     <!-- this should look almost like a table, with grid lines between, above and under the cards -->
     <div class="articles-strip">
         <div>
