@@ -31,41 +31,71 @@ the image should look like a typical header image, full width, not repeating -->
 <main>
     <!-- this should look almost like a table, with grid lines between, above and under the cards -->
     <div class="articles-strip">
-        <div>
+        <div class="card">
             <h2>Friss cikkek</h2>
-            <a class="btn">Többi cikk <i class="fa-solid fa-chevron-right"></i></a>
+            <a class="btn" href="">Többi cikk </a>
         </div>
         <div class="card">
             <h3>Cikk címe</h3>
             <p>Növény neve</p>
             <!-- idk author name, date -->
             <img>
-            <a class="btn">Olvass tovább <i class="fa-solid fa-chevron-right"></i></a>
+            <a class="btn">Olvass tovább</a>
         </div>
         <div class="card">
             <h3>Cikk címe</h3>
             <p>Növény neve</p>
             <!-- idk author name, date -->
             <img>
-            <a class="btn">Olvass tovább <i class="fa-solid fa-chevron-right"></i></a>
+            <a class="btn">Olvass tovább</a>
         </div>
         <div class="card">
             <h3>Cikk címe</h3>
             <p>Növény neve</p>
             <!-- idk author name, date -->
             <img>
-            <a class="btn">Olvass tovább <i class="fa-solid fa-chevron-right"></i></a>
+            <a class="btn">Olvass tovább</a>
         </div>
-        <!-- @foreach ($articles as $article)
-        <div class="card article">
-            <h3>{{ $article->title }}</h3>
-            <p>Növény neve</p>
-            <div class="content">{!! $article->content !!}</div> <!-- Render HTML -->
-    </div>
-    @endforeach -->
     </div>
 </main>
 
+<div class="articles-strip" id="articles-container">
+    <div class="card">
+        <h2>Friss cikkek</h2>
+        <a class="btn" href="/articles">Többi cikk <i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+</div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("/api/articles/search?sortby=created_at")
+        .then(response => response.json())
+        .then(articles => {
+            const container = document.getElementById("articles-container");
+
+            if (!articles || articles.length === 0) {
+                container.innerHTML += `<div class="card"><p>No articles found.</p></div>`;
+                return;
+            }
+
+            articles.slice(0, 3).forEach(article => {
+                container.innerHTML += `
+                    <div class="card">
+                        <h3>${article.title}</h3>
+                        <p>${article.plant_name}</p>
+                        <p>By: ${article.author}</p>
+                        <p>Updated: ${new Date(article.updated_at).toLocaleDateString()}</p>
+                        <a class="btn" href="/article/${article.title}">Olvass tovább <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                `;
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching articles:", error);
+            document.getElementById("articles-container").innerHTML +=
+                `<div class="card"><p>No articles found.</p></div>`;
+        });
+});
+</script>
 
 @endsection

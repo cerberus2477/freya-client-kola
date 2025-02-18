@@ -16,7 +16,7 @@
     --clr-green-3: #DFF29D;
     --clr-dark-green: #0F4020;
     /* --clr-bg-light: #fcf6ee; */
-        /* --clr-highlight: rgb(113, 147, 242);
+    /* --clr-highlight: rgb(113, 147, 242);
     --clr-error: rgb(255, 67, 67);
     --clr-success: rgb(12, 211, 38); */
 
@@ -75,7 +75,7 @@ footer {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 0;
-    
+
     /* background: linear-gradient(10deg, var(--clr-yellow-dark), var(--clr-green) 60%); */
     /* background: linear-gradient(to bottom, var(--clr-black), var(--clr-green-light));
     opacity: .6; */
@@ -105,7 +105,7 @@ footer {
     color: var(--clr-bg);
 }
 
-.accomplishments-strip div span{
+.accomplishments-strip div span {
     font-size: 2rem;
     font-weight: bold;
     display: inline-block;
@@ -187,18 +187,26 @@ nav {
 }
 
 nav a {
-    
-    color: var(--clr-text);
     text-decoration: none;
     padding: 1rem 2rem;
     display: block;
 }
 
+/* nav a::after {
+    border-bottom: 1px solid var(--clr-bg);
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+} */
+
 /* Hover effect for links */
-nav a:hover {
+/* nav a:hover {
     background-color: var(--clr-orange);
     border-radius: 5px;
-}
+} */
 
 .nav-logo {
     margin-right: auto;
