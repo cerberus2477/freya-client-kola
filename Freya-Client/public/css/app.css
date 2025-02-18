@@ -7,17 +7,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --clr-bg: #fcf6ee;
-    --clr-text: #121212;
-    --clr-accent: #d15439;
-    --clr-green: #486c24;
-    --clr-dark-green: rgb(19,45,42);
+    --clr-bg: #FCF6EE;
+    --clr-text: #181818;
+    --clr-orange: #d15439;
+    --clr-burgundy: #711815;
+    --clr-green: #426B1F;
+    --clr-green-2: #81D366;
+    --clr-green-3: #DFF29D;
+    --clr-dark-green: #0F4020;
     /* --clr-bg-light: #fcf6ee; */
         /* --clr-highlight: rgb(113, 147, 242);
     --clr-error: rgb(255, 67, 67);
     --clr-success: rgb(12, 211, 38); */
 
-    --clr-nav: var(--clr-dark-green);
+    --clr-nav: var(--clr-text);
 }
 
 * {
@@ -45,7 +48,7 @@ main {
 
 footer {
     padding: 20px;
-    background-color: var(--clr-dark-green);
+    background-color: var(--clr-text);
     color: var(--clr-bg);
     bottom: 0;
     width: 100%;
@@ -112,7 +115,8 @@ footer {
 .articles-strip {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
+    /* gap: 1rem; */
+    border-collapse: collapse;
     padding: 2rem;
     border-top: 2px solid var(--clr-dark-green);
     border-bottom: 2px solid var(--clr-dark-green);
@@ -122,6 +126,7 @@ footer {
     padding: 1rem;
     border: 1px solid var(--clr-dark-green);
     background: var(--clr-bg);
+    margin-right: -1px;
 }
 
 .articles-strip h2 {
@@ -147,13 +152,26 @@ footer {
 }
 
 .btn-primary {
-    background-color: var(--clr-accent);
-    border-color: var(--clr-accent);
+    background-color: var(--clr-burgundy);
+    border-color: var(--clr-burgundy);
 }
 
 .btn-primary:hover {
-    background-color: var(--clr-bg);
-    color: var(--clr-accent);
+    /* background-color: var(--clr-bg);
+    color: var(--clr-orange); */
+    background-color: var(--clr-orange);
+    border-color: var(--clr-orange);
+}
+
+.btn-green {
+    background-color: var(--clr-green);
+    border-color: var(--clr-green);
+}
+
+.btn-green:hover {
+    background-color: var(--clr-green-2);
+    border-color: var(--clr-green-2);
+    /* color: var(--clr-accent); */
 }
 
 a {
@@ -178,7 +196,7 @@ nav a {
 
 /* Hover effect for links */
 nav a:hover {
-    background-color: var(--clr-accent);
+    background-color: var(--clr-orange);
     border-radius: 5px;
 }
 
