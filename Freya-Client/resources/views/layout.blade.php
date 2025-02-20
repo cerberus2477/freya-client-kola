@@ -7,27 +7,29 @@
     <title>Freya's Garden</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+    <script defer src="{{ asset('js/navbar.js') }}"></script>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li class="nav-left"><a href="{{route('home')}}"><i class="fa-solid fa-house"></i> Freya's Garden</a></li>
-            <li><a href="{{ route('plants.index') }}"><i class="fa-solid fa-plant"></i> Rólunk</a></li>
-            <li><a href="{{ route('userplants.index') }}"><i class="fa-solid arrows-left-right"></i> Mérföldkövek</a></li>
-            <li><a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> Cikkek</a></li>
-            <li><a class="btn btn-primary" href="#">Letöltés</a></li>
-        </ul>
+    <nav class="main-nav" data-state="closed" data-scrolled="false">
+        <div class="nav-first-row">
+            <a class="nav-logo" href="{{route('home')}}">Freya's Garden</a>
+            <a href="#" class="btn btn-primary navbar-toggler" onclick="toggleNav();">
+                <span class="fa fa-bars"></span>
+            </a>
+        </div>
+            <a href="{{ route('plants.index') }}"><i class="fa-solid fa-about-us"></i> Rólunk</a>
+            <a href="{{ route('userplants.index') }}"><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
+            <a href="{{ route('users.index') }}"><i class="fa-solid fa-newspaper"></i> Cikkek</a>
+            <a class="btn btn-primary" href="./download.php">Letöltés</a>
     </nav>
 
-    <main>
-        @yield('content')
-    </main>
+    @yield('content')
 
     <footer>
+        <h1>Freya's Garden</h1>
         <p>&copy; 2024.12.07 Freya-Client Tábor Tünde </p>
-        <p>A projekt github oldala itt érhető el: <a target="_blank"
-                href="https://github.com/cerberus2477/freya-client-kola">https://github.com/cerberus2477/freya-client-kola</a>
+        <p>A projekt github oldala itt érhető el: <a href="https://github.com/stars/cerberus2477/lists/freya-s-garden">Freya's Garden Github</a> <a href="https://github.com/OOGGZZII/plamnt">Plamnt</a>
         </p>
     </footer>
 </body>
