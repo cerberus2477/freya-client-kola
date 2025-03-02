@@ -313,12 +313,13 @@ nav a {
 }
 
 /* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
-.articles-container{
+.articles-container {
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
 }
-.results{
+
+.results {
     z-index: 0;
     width: 100%;
     display: flex;
@@ -328,7 +329,8 @@ nav a {
     gap: 10px;
     background-color: var(--clr-bg);
 }
-.results .article-card{
+
+.results .article-card {
     height: 25vh;
     width: 30%;
     display: flex;
@@ -338,18 +340,21 @@ nav a {
     background-color: var(--clr-article);
     border-bottom: 1px var(--clr-dark-green) solid;
 }
-.results .article-card h3{
+
+.results .article-card h3 {
     width: 100%;
 }
-.results .article-card p{
+
+.results .article-card p {
     font-style: italic;
 }
-.article-description{
+
+.article-description {
     width: 100%;
 }
 
 /*SEARCHBAR*/
-.searchbar{
+.searchbar {
     z-index: 1;
     margin-left: auto;
     margin-right: auto;
@@ -361,7 +366,8 @@ nav a {
     padding: 1%;
     background-color: yellowgreen;
 }
-.searchbar input{
+
+.searchbar input {
     background-color: green;
     width: 80%;
     height: 40%;
@@ -369,7 +375,7 @@ nav a {
 }
 
 /*FILTERS*/
-.filters{
+.filters {
     top: 10%;
     position: sticky;
     height: 50%;
@@ -381,7 +387,8 @@ nav a {
     width: 10%;
     z-index: 2;
 }
-.category-container{
+
+.category-container {
     padding: 1vh;
     display: flex;
     flex-wrap: wrap;
@@ -389,15 +396,65 @@ nav a {
     gap: 2vh;
     border-bottom: 1px solid pink;
 }
-.category-container .filter-checkbox{
+
+.category-container .filter-checkbox {
     border-radius: 10px;
     flex-basis: 20%;
     height: 4vh;
     width: fit-content;
     padding: 5px;
 }
-.category-container h3{
+
+.category-container h3 {
     width: 100%;
 }
 
 /*Pages*/
+
+
+
+
+/* ERROR */
+/* Error Message Styling */
+.error-message {
+    background-color: #f8d7da;
+    /* Light red background for error */
+    color: #721c24;
+    /* Dark red text color */
+    border: 1px solid #f5c6cb;
+    /* Light red border */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Inter", sans-serif;
+    font-size: 1.125rem;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Error heading (for better emphasis) */
+.error-message h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #721c24;
+    margin-bottom: 10px;
+}
+
+/* Error message text */
+.error-message p {
+    font-size: 1.125rem;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+/* Additional message styling (optional) */
+.error-message .error-details {
+    font-size: 1rem;
+    color: #531117;
+    margin-top: 10px;
+}

@@ -49,13 +49,26 @@ class ArticleController extends Controller
         // Remove empty values
         $queryParams = array_filter($queryParams);
     
+
         // Make API request
-        $response = Http::freyarest()->get('articles/search', $queryParams);
-    
-        if ($response->failed()) {
-            return view('error', ['message' => 'Unable to fetch articles. Please try again later.']);
+        try {
+            $response = Http::freyarest()->get('articles/search', $queryParams);
+
+            if ($response->failed()) {
+                throw new \Exception("Unable to fetch articles. Please try again later.");
+            }
+
+            $articles = $response->json()['data'];
+        } catch (\Exception $e) {
+            // Catch any exception and pass the error message to the view
+            $errorMessage = $e->getMessage();
+            
+            return view('articles.filter', [
+                'errorMessage' => $errorMessage
+            ]);
         }
-    
+
+
         $articles = $response->json()['data'];
     
         // Fetch responses from api

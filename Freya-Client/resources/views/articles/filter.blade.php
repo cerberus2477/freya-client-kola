@@ -1,11 +1,22 @@
 @extends('layout')
 
+@section('scripts')
+<script src="{{ asset('js/articles.js') }}"></script>
+@endsection
+
 @section('content')
 <header class="header-articles">
     <h1 class="header-title">Összes cikk</h1>
 </header>
 
 <main>
+    @if(isset($errorMessage))
+    <div class="error-message">
+        <h2>Hiba történt</h2>
+        <p>Nem sikerült elérni a szervert. Kérjük próbáld újra később</p>
+        <p class="error-details">{{ $errorMessage }}</p>
+    </div>
+    @else
     <div class="filters">
         <h2>Szűrők</h2>
         <form method="GET" action="{{ route('articles.filter') }}" id="filter-form">
@@ -64,41 +75,28 @@
             @endforeach
         </div>
 
+        <!-- TODO -->
         <div class="pages">
             Cikkek száma oldalanként:
-            <select id="pageSize" name="pageSize">
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="all">Összes</option>
+            <select>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+                <option>50</option>
+                <option>összes cikk</option>
             </select>
-            <button type="submit" class="btn" id="prev-page"><i class="fa-solid fa-chevron-left"></i></button>
-            <button type="submit" class="btn" id="next-page"><i class="fa-solid fa-chevron-right"></i></button>
+            <!-- &pageSize=
+            or
+            ?all
+            if ?all or no more pages or on first page, make the corresponding buttons inactive. -->
+            x. oldal y-z. cikk
+            <a href="{{ route('articles.filter') }}" class="btn"><i class="fa-solid fa-chevron-left"></i></a>
+            <!-- &page= -->
+            <a href="{{ route('articles.filter') }}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
         </div>
+
     </div>
+    @endif
 </main>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filterForm = document.getElementById('filter-form');
-    const searchButton = document.getElementById('search-button');
-    const searchText = document.getElementById('search-text');
-    const filters = document.querySelectorAll('.filter-dropdown, input');
-
-    function updateURL() {
-        filterForm.submit();
-    }
-
-    searchButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        updateURL();
-    });
-
-    filters.forEach(filter => {
-        filter.addEventListener('change', updateURL);
-    });
-});
-</script>
 @endsection
