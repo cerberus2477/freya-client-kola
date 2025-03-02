@@ -18,9 +18,9 @@
                 <span class="fa fa-bars"></span>
             </a>
         </div>
-            <a href="{{ route('plants.index') }}"><i class="fa-solid fa-about-us"></i> Rólunk</a>
-            <a href="{{ route('userplants.index') }}"><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
-            <a href="{{ route('users.index') }}"><i class="fa-solid fa-newspaper"></i> Cikkek</a>
+            <a href=""><i class="fa-solid fa-about-us"></i> Rólunk</a>
+            <a href=""><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
+            <a href="{{ route('articles.index') }}"><i class="fa-solid fa-newspaper"></i> Cikkek</a>
             <a class="btn btn-primary" href="./download.php">Letöltés</a>
     </nav>
 
