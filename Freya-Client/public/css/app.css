@@ -8,6 +8,7 @@
 
 :root {
     --clr-bg: #FCF6EE;
+    --clr-article: #e6ded4;
     --clr-text: #181818;
     --clr-orange: #d15439;
     --clr-burgundy: #711815;
@@ -44,6 +45,7 @@ body {
 
 main {
     padding: 5rem;
+    display: flex;
 }
 
 footer {
@@ -55,10 +57,9 @@ footer {
 }
 
 /* HEADER */
-.header-main {
+header {
     position: relative;
     background: url("../img/hero1.webp") no-repeat center/cover;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,7 +68,12 @@ footer {
     color: var(--clr-bg);
 }
 
-.header-main::after {
+header * {
+    position: relative;
+    z-index: 1;
+}
+
+header::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -81,9 +87,12 @@ footer {
     opacity: .6; */
 }
 
-.header-main * {
-    position: relative;
-    z-index: 1;
+.header-main {
+    height: 100vh;
+}
+
+.header-articles {
+    height: 30vh;
 }
 
 .header-title {
@@ -94,6 +103,7 @@ footer {
 .header-text {
     font-size: 1.5rem;
 }
+
 
 /* ACCOMPLISHMENTS STRIP */
 .accomplishments-strip {
@@ -301,3 +311,93 @@ nav a {
 
     /* mix-blend-mode: difference; */
 }
+
+/* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
+.articles-container{
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.results{
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    justify-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: var(--clr-bg);
+}
+.results .article-card{
+    height: 25vh;
+    width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1vh;
+    background-color: var(--clr-article);
+    border-bottom: 1px var(--clr-dark-green) solid;
+}
+.results .article-card h3{
+    width: 100%;
+}
+.results .article-card p{
+    font-style: italic;
+}
+.article-description{
+    width: 100%;
+}
+
+/*SEARCHBAR*/
+.searchbar{
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    position: sticky;
+    top: 10%;
+    height: 10vh;
+    width: 80%;
+    padding: 1%;
+    background-color: yellowgreen;
+}
+.searchbar input{
+    background-color: green;
+    width: 80%;
+    height: 40%;
+
+}
+
+/*FILTERS*/
+.filters{
+    top: 10%;
+    position: sticky;
+    height: 50%;
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: red;
+    width: 10%;
+    z-index: 2;
+}
+.category-container{
+    padding: 1vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2vh;
+    border-bottom: 1px solid pink;
+}
+.category-container .filter-checkbox{
+    border-radius: 10px;
+    flex-basis: 20%;
+    height: 4vh;
+    width: fit-content;
+    padding: 5px;
+}
+.category-container h3{
+    width: 100%;
+}
+
+/*Pages*/
