@@ -35,4 +35,4 @@ Route::get('/', function () {
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles-filter', [ArticleController::class, 'filter'])->name('articles.filter');
-// Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');

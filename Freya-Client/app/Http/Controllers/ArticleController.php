@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -32,8 +33,48 @@ class ArticleController extends Controller
         return view('articles.index');
     }
 
-    public function filter(){
-        return view('articles.filter');
+    
+    public function filter(Request $request)
+    {
+        $queryParams = [
+            'q' => $request->input('q'),
+            'after' => $request->input('after'),
+            'before' => $request->input('before'),
+            'typeofplant' => $request->input('typeofplant'),
+            'plant' => $request->input('plant'),
+            'category' => $request->input('category'),
+            'pageSize' => $request->input('pageSize'),
+        ];
+    
+        // Remove empty values
+        $queryParams = array_filter($queryParams);
+    
+        // Make API request
+        $response = Http::freyarest()->get('articles/search', $queryParams);
+    
+        if ($response->failed()) {
+            return view('error', ['message' => 'Unable to fetch articles. Please try again later.']);
+        }
+    
+        $articles = $response->json()['data'];
+    
+        // Fetch responses from api
+        $typesResponse = Http::freyarest()->get('types')->json();
+        $plantsResponse = Http::freyarest()->get('plants')->json();
+        $categoriesResponse = Http::freyarest()->get('categories')->json();
+
+        //get only the name field in data
+        $types = array_map(fn($type) => $type['name'], $typesResponse['data'] ?? []);
+        $plants = array_map(fn($plant) => $plant['name'], $plantsResponse['data'] ?? []);
+        $categories = array_map(fn($category) => $category['name'], $categoriesResponse['data'] ?? []);
+    
+        return view('articles.filter', [
+            'articles' => $articles,
+            'types' => $types,
+            'plants' => $plants,
+            'categories' => $categories,
+        ]);
     }
+    
 
 }

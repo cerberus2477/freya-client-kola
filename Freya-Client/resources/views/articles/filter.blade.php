@@ -4,162 +4,101 @@
 <header class="header-articles">
     <h1 class="header-title">Összes cikk</h1>
 </header>
+
 <main>
     <div class="filters">
-        
-        <div class="category-container">
-        <h3>Cók</h3>
-            <button type="submit" class="btn filter-checkbox" id="fbtn1">cucc001</button>
-            <button type="submit" class="btn filter-checkbox" id="fbtn2">cucc002</button>
-            <button type="submit" class="btn filter-checkbox" id="fbtn3">cucc003</button>
-            <button type="submit" class="btn filter-checkbox" id="fbtn4">cucc004</button>
-            <button type="submit" class="btn filter-checkbox" id="fbtn5">cucc005</button>
-            <button type="submit" class="btn filter-checkbox" id="fbtn6">cucc006</button>
-        </div>
-        
-        <div class="category-container">
-        <h3>Mók</h3>
-            <div class="filter-checkbox"><p>pluh</p></div>
-            <div class="filter-checkbox"><p>pluhpluh</p></div>
-            <div class="filter-checkbox"><p>bip</p></div>
-            <div class="filter-checkbox"><p>bup</p></div>
-            <div class="filter-checkbox"><p>4</p></div>
-        </div>
-        
-        <div class="category-container">
-            <h3>Kók</h3>
-            <h2>Dropdown stuff</h2>
-        </div>
-    </div>
-    <div class="articles-container">
-        <div class="searchbar">
-            <input type="text" name="" id="">
-            <button type="submit" class="btn" >🔍</button>
-        </div>
-        <div class="results">
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
-            <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
+        <h2>Szűrők</h2>
+        <form method="GET" action="{{ route('articles.filter') }}" id="filter-form">
+            <div class="category-container">
+                <h3>Szűrés növény alapján</h3>
+                <select name="typeofplant" id="typeofplant" class="filter-dropdown">
+                    <option value="">Válassz típust</option>
+                    @foreach ($types as $type)
+                    <option value="{{ $type }}">{{ $type }}</option>
+                    @endforeach
+                </select>
+
+                <input type="text" name="plant" id="plant" placeholder="Növény neve" list="plants">
+                <datalist id="plants">
+                    @foreach ($plants as $plant)
+                    <option value="{{ $plant }}">
+                        @endforeach
+                </datalist>
             </div>
 
+            <div class="category-container">
+                <h3>Többi szűrő</h3>
+                <label for="after">Dátum -tól:</label>
+                <input type="date" name="after" id="after">
+
+                <label for="before">Dátum -ig:</label>
+                <input type="date" name="before" id="before">
+
+                <label for="category">Cikk fajtája:</label>
+                <select name="category">
+                    <option value="">Válassz kategóriát</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category }}">{{ $category }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="articles-container">
+        <div class="searchbar">
+            <input type="text" name="q" id="search-text" value="{{ request('q') }}" placeholder="Keresés...">
+            <button type="submit" class="btn" id="search-button"><i class="fa-solid fa-search"></i></button>
+        </div>
+
+        <div class="results">
+            @foreach ($articles as $article)
+            <div class="card article-card">
+                <p>{{$article["author"]}}</p>
+                <p>{{ $article["updated_at"] }}</p>
+                <h3>{{ $article["title"] }}</h3>
+                <p class="article-description">{{$article["description"]}}</p>
+                <p>{{ $article["category"] }}</p>
+                <p>{{ $article["plant_name"] }}</p>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="pages">
+            Cikkek száma oldalanként:
+            <select id="pageSize" name="pageSize">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="all">Összes</option>
+            </select>
+            <button type="submit" class="btn" id="prev-page"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="submit" class="btn" id="next-page"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 </main>
 
-
-
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("/api/articles/search?sortby=created_at")
-        .then(response => response.json())
-        .then(articles => {
-            const container = document.getElementById("articles-list");
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filter-form');
+    const searchButton = document.getElementById('search-button');
+    const searchText = document.getElementById('search-text');
+    const filters = document.querySelectorAll('.filter-dropdown, input');
 
-            if (!articles || articles.length === 0) {
-                container.innerHTML += `<p>No articles found.</p>`;
-                return;
-            }
+    function updateURL() {
+        filterForm.submit();
+    }
 
-            articles.forEach(article => {
-                container.innerHTML += `
-                    <div class="card">
-                        <h3>${article.title}</h3>
-                        <p>${article.plant_name}</p>
-                        <p>By: ${article.author}</p>
-                        <p>Updated: ${new Date(article.updated_at).toLocaleDateString()}</p>
-                        <a class="btn" href="/article/${article.title}">Olvass tovább <i class="fa-solid fa-chevron-right"></i></a>
-                    </div>
-                `;
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching articles:", error);
-            document.getElementById("articles-list").innerHTML += `<p>No articles found.</p>`;
-        });
+    searchButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        updateURL();
+    });
+
+    filters.forEach(filter => {
+        filter.addEventListener('change', updateURL);
+    });
 });
 </script>
 @endsection

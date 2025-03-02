@@ -10,18 +10,10 @@
     <div class="articles-container">
         <div class="searchbar">
             <input type="text" name="" id="">
-            <button type="submit" class="btn" >🔍</button>
+            <!-- <button type="submit" class="btn">🔍</button> -->
+            <a href="{{ route('articles.filter') }}" class="btn"><i class="fa-solid fa-search"></i></a>
         </div>
         <div class="results">
-            <div class="pages"></div>
-        <div class="card article-card">
-                <p>ezaz</p>
-                <p>ezaz</p>
-                <h3>cimcimcimcimcim</h3>
-                <p class="article-description">szovegyszovegyszovegyszovegy</p>
-                <p>amaz</p>
-                <p>amaz</p>
-            </div>
             <div class="card article-card">
                 <p>ezaz</p>
                 <p>ezaz</p>
@@ -102,6 +94,30 @@
                 <p>amaz</p>
                 <p>amaz</p>
             </div>
+            <div class="card article-card">
+                <p>ezaz</p>
+                <p>ezaz</p>
+                <h3>cimcimcimcimcim</h3>
+                <p class="article-description">szovegyszovegyszovegyszovegy</p>
+                <p>amaz</p>
+                <p>amaz</p>
+            </div>
+
+
+        </div>
+        <div class="pages">
+            Cikkek száma oldalanként:
+            <select>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+                <option>50</option>
+                <option>összes cikk</option>
+            </select>
+            x. oldal y-z. cikk
+            <a href="{{ route('articles.index') }}" class="btn"><i class="fa-solid fa-chevron-left"></i></a>
+            <a href="{{ route('articles.index') }}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
         </div>
     </div>
 </main>
