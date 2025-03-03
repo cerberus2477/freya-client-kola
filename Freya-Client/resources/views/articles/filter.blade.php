@@ -1,10 +1,13 @@
 @extends('layout')
 
 @section('scripts')
+
 <script src="{{ asset('js/articles.js') }}"></script>
+
 @endsection
 
 @section('content')
+
 <header class="header-articles">
     <h1 class="header-title">Összes cikk</h1>
 </header>
@@ -32,8 +35,8 @@
                 <input type="text" name="plant" id="plant" placeholder="Növény neve" list="plants">
                 <datalist id="plants">
                     @foreach ($plants as $plant)
-                    <option value="{{ $plant }}">
-                        @endforeach
+                    <option value="{{ $plant }}">{{ $plant }}</option>
+                    @endforeach
                 </datalist>
             </div>
 
@@ -77,26 +80,49 @@
 
         <!-- TODO -->
         <div class="pages">
-            Cikkek száma oldalanként:
-            <select>
-                <option>10</option>
-                <option>15</option>
-                <option>20</option>
-                <option>25</option>
-                <option>50</option>
-                <option>összes cikk</option>
-            </select>
-            <!-- &pageSize=
-            or
-            ?all
-            if ?all or no more pages or on first page, make the corresponding buttons inactive. -->
-            x. oldal y-z. cikk
-            <a href="{{ route('articles.filter') }}" class="btn"><i class="fa-solid fa-chevron-left"></i></a>
-            <!-- &page= -->
-            <a href="{{ route('articles.filter') }}" class="btn"><i class="fa-solid fa-chevron-right"></i></a>
-        </div>
+            <form method="GET" action="{{ route('articles.filter') }}" id="pagination-form">
+                Cikkek száma oldalanként:
+                <select name="pageSize" onchange="this.form.submit()">
+                    <option value="" {{ !request()->has('pageSize') ? 'selected' : '' }}>Alapértelmezett</option>
+                    <option value="10" {{ request('pageSize') == 10 ? 'selected' : '' }}>10</option>
+                    <option value="15" {{ request('pageSize') == 15 ? 'selected' : '' }}>15</option>
+                    <option value="20" {{ request('pageSize') == 20 ? 'selected' : '' }}>20</option>
+                    <option value="25" {{ request('pageSize') == 25 ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ request('pageSize') == 50 ? 'selected' : '' }}>50</option>
+                    <!-- <option value="all" {{ request()->has('all') ? 'selected' : '' }}>Összes</option> -->
+                </select>
+            </form>
 
+            @if(!request()->has('all'))
+                <p>{{ $pagination["page"] }}. oldal / {{ $pagination["totalPages"] }} oldal - Cikkek száma: {{ $pagination["total"] }} </p>
+                <div class="pagination-buttons">
+                    @if ($pagination["page"] > 1)
+                    <a href="{{ route('articles.filter', array_merge($queryParams, ['page' => $pagination["page"] - 1])) }}"
+                        class="btn">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    @else
+                        <span class="btn disabled"><i class="fa-solid fa-chevron-left"></i></span>
+                    @endif
+
+                    @if ($pagination["page"] < $pagination["totalPages"]) 
+                        <a href="{{ route('articles.filter', array_merge($queryParams, ['page' => $pagination["page"] + 1])) }}"
+                        class="btn">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    @else
+                        <span class="btn disabled"><i class="fa-solid fa-chevron-right"></i></span>
+                    @endif
+                </div>
+            @endif
+        </div>
     </div>
     @endif
 </main>
 @endsection
+
+<!-- TODO -->
+<!-- - disabled button styleing
+- filtereknél megmaradjon a választott (mint a pagintaionnál)
+- lehet ki kell szedni a paginationt ha új filter van
+- egyelőre nincs 'all' -->

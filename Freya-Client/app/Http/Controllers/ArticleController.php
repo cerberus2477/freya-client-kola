@@ -44,10 +44,22 @@ class ArticleController extends Controller
             'plant' => $request->input('plant'),
             'category' => $request->input('category'),
             'pageSize' => $request->input('pageSize'),
+            'page' => $request->input('page')
         ];
     
+        // ?all or ?pageSize={pageSize}&page={page}, but not both
+        // if ($request->input('pageSize') === 'all') {
+        //     $queryParams = array_filter($queryParams, fn($key) => $key !== 'pageSize', ARRAY_FILTER_USE_KEY);
+  
+        //     $queryParams['all'] = true;
+        // } else {
+        //     $queryParams['pageSize'] = $request->input('pageSize');
+        //     $queryParams['page'] = $request->input('page');
+        // }
+
         // Remove empty values
-        $queryParams = array_filter($queryParams);
+        $queryParams = array_filter($queryParams, fn($value) => !is_null($value) && $value !== '');
+
     
 
         // Make API request
@@ -59,6 +71,7 @@ class ArticleController extends Controller
             }
 
             $articles = $response->json()['data'];
+            $pagination = $response->json()['pagination'] ?? null;
         } catch (\Exception $e) {
             // Catch any exception and pass the error message to the view
             $errorMessage = $e->getMessage();
@@ -86,6 +99,8 @@ class ArticleController extends Controller
             'types' => $types,
             'plants' => $plants,
             'categories' => $categories,
+            'pagination' => $pagination,
+            'queryParams' => $queryParams
         ]);
     }
     
