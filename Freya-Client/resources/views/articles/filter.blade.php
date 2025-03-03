@@ -28,14 +28,14 @@
                 <select name="typeofplant" id="typeofplant" class="filter-dropdown">
                     <option value="">Válassz típust</option>
                     @foreach ($types as $type)
-                    <option value="{{ $type }}">{{ $type }}</option>
+                        <option value="{{ $type }}" {{ request('typeofplant') == $type ? 'selected' : '' }}>{{ $type }}</option>
                     @endforeach
                 </select>
 
-                <input type="text" name="plant" id="plant" placeholder="Növény neve" list="plants">
+                <input type="text" name="plant" id="plant" placeholder="Növény neve" list="plants" value="{{ request('plant') }}">
                 <datalist id="plants">
                     @foreach ($plants as $plant)
-                    <option value="{{ $plant }}">{{ $plant }}</option>
+                        <option value="{{ $plant }}" {{ request('plant') == $plant ? 'selected' : '' }}>{{ $plant }}</option>
                     @endforeach
                 </datalist>
             </div>
@@ -43,27 +43,35 @@
             <div class="category-container">
                 <h3>Többi szűrő</h3>
                 <label for="after">Dátum -tól:</label>
-                <input type="date" name="after" id="after">
+                <input type="date" name="after" id="after" value="{{ request('after') }}">
 
                 <label for="before">Dátum -ig:</label>
-                <input type="date" name="before" id="before">
+                <input type="date" name="before" id="before" value="{{ request('before') }}">
 
                 <label for="category">Cikk fajtája:</label>
-                <select name="category">
+                <select name="category" id="category">
                     <option value="">Válassz kategóriát</option>
                     @foreach ($categories as $category)
-                    <option value="{{ $category }}">{{ $category }}</option>
+                        <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>{{ $category }}</option>
                     @endforeach
                 </select>
+                
             </div>
+
+            <div class="category-container">
+                <input type="button" value="Szűrők törlése" id="clear-filters">
+            </div>
+            
         </form>
     </div>
 
     <div class="articles-container">
         <div class="searchbar">
             <input type="text" name="q" id="search-text" value="{{ request('q') }}" placeholder="Keresés...">
+            <span><input type="checkbox" name="deepSearch" id="deepSearch" {{ request('deep') ? 'checked' : '' }}> Keresés a cikkek szövegében is</span>
             <button type="submit" class="btn" id="search-button"><i class="fa-solid fa-search"></i></button>
         </div>
+        
 
         <div class="results">
             @foreach ($articles as $article)
@@ -122,7 +130,7 @@
 @endsection
 
 <!-- TODO -->
-<!-- - disabled button styleing
+<!-- - add disabled button styleing
 - filtereknél megmaradjon a választott (mint a pagintaionnál)
 - lehet ki kell szedni a paginationt ha új filter van
 - egyelőre nincs 'all' -->

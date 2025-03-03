@@ -44,7 +44,8 @@ class ArticleController extends Controller
             'plant' => $request->input('plant'),
             'category' => $request->input('category'),
             'pageSize' => $request->input('pageSize'),
-            'page' => $request->input('page')
+            'page' => $request->input('page'),
+            'deep' => $request->input('deepSearch') ? true : false
         ];
     
         // ?all or ?pageSize={pageSize}&page={page}, but not both

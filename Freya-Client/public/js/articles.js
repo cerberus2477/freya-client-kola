@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchButton = document.getElementById('search-button');
     const searchText = document.getElementById('search-text');
     const filters = document.querySelectorAll('.filter-dropdown, input');
+    const clearFiltersButton = document.getElementById('clear-filters');
 
     function updateURL() {
         filterForm.submit();
@@ -17,5 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     filters.forEach(filter => {
         filter.addEventListener('change', updateURL);
+    });
+
+    // Reset filters 
+    clearFiltersButton.addEventListener('click', function () {
+        filterForm.reset();
+        updateURL();
     });
 });
