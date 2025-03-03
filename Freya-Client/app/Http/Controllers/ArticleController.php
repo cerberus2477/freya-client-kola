@@ -104,6 +104,38 @@ class ArticleController extends Controller
             'queryParams' => $queryParams
         ]);
     }
-    
+
+    // /articles/{title}    
+    public function show($title) 
+    {
+        try {
+            // Make an API request using the title passed in the URL as part of the path
+            $response = Http::freyarest()->get('articles/' . urlencode($title));  // Encode the title to handle special characters
+
+            if ($response->failed()) {
+                throw new \Exception("Unable to fetch article. Please try again later.");
+            }
+
+            // Access the article from the 'data' key of the response
+            $article = $response->json()['data'];
+
+            // Check if 'title' exists in the article data
+            if (empty($article)) {
+                throw new \Exception("Article data is empty for some reason");
+            }
+
+        } catch (\Exception $e) {
+            // Catch any exception and pass the error message to the view
+            $errorMessage = $e->getMessage();
+            
+            return view('articles.show', [
+                'errorMessage' => $errorMessage
+            ]);
+        }
+
+        // Return the view with the article data
+        return view('articles.show', ['article' => $article]);
+    }
+
 
 }

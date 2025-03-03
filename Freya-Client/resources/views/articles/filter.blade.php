@@ -84,7 +84,9 @@
                 <div class="card">
                     <p>{{$article["author"]}}</p>
                     <p>{{ $article["updated_at"] }}</p>
-                    <h3>{{ $article["title"] }}</h3>
+                    <h3><a href="{{ route('articles.show', ['title' => $article['title']]) }}"
+                            target="_blank">{{ $article["title"] }}</a>
+                    </h3>
                     <p class="article-description">{{$article["description"]}}</p>
                     <p>{{ $article["category"] }}</p>
                     <p>{{ $article["plant_name"] }} ({{ $article["type"] }})</p>
