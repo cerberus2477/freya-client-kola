@@ -154,6 +154,10 @@ header::after {
     padding: 1rem;
     border: 1px solid var(--clr-dark-green);
     background: var(--clr-bg);
+}
+
+.articles-strip
+.card {
     margin-right: -1px;
 }
 
@@ -331,18 +335,19 @@ nav a {
     /* mix-blend-mode: difference; */
 }
 
-.container {
-    display: flex;
+.content-container {
+    /* display: flex; */
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
-    gap: 2rem;
+    /* gap: 2rem; */
 }
 
 /* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
 .articles-container {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
+    max-width: 1280px;
 }
 
 .results {
@@ -350,23 +355,37 @@ nav a {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    justify-items: flex-start;
+    align-items: stretch;
     flex-wrap: wrap;
     gap: 10px;
     background-color: var(--clr-bg);
 }
 
-.results ard {
+.results .card {
+    flex: 1 1 calc(33.333% - 10px); /* Default to three columns */
     min-height: 10rem;
-    flex: 1;
-    /* Allows flexible growth */
-    max-width: 33.33%;
-    /* Restricts maximum width to one-third */
-
-    border: 1px solid var(--clr-dark-green);
-    background: var(--clr-bg);
-    margin-right: -1px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
+
+/* Two columns if less than 1400px */
+@media (max-width: 1400px) {
+    .results .card {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+/* One column if less than 900px */
+@media (max-width: 900px) {
+    .results .card {
+        flex: 1 1 100%;
+    }
+}
+
+
 
 .results .card h3 {
     width: 100%;
@@ -381,7 +400,7 @@ nav a {
 }
 
 /*SEARCHBAR*/
-.searchbar {
+.searchbar-container {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
@@ -390,7 +409,7 @@ nav a {
     border: 2px solid darkgreen;
 }
 
-.searchbar input[type="text"] {
+.searchbar-container input[type="text"] {
     flex: 1;
 }
 
@@ -403,7 +422,8 @@ nav a {
     background-color: var(--clr-dark-green);
     padding: var(--padding-card);
     color: var(--clr-bg);
-
+    margin-right: 2rem;
+    float: left;
 }
 
 .category-container {

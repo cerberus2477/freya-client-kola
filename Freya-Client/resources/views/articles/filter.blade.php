@@ -20,16 +20,20 @@
 </div>
 @else
 <main>
-    <div class="container">
+    <div class="content-container">
         <div class="filters">
             <h2>Szűrők</h2>
             <form method="GET" action="{{ route('articles.filter') }}" id="filter-form">
                 <div class="category-container">
+                    <span><input type="checkbox" name="deep" id="deep" {{ request('deep') ? 'checked' : '' }}>
+                        Keresés a cikkek szövegében is</span>
+                </div>
+                <div class="category-container">
                     <h3>Szűrés növény alapján</h3>
-                    <select name="typeofplant" id="typeofplant" class="filter-dropdown">
+                    <select name="type" id="type" class="filter-dropdown">
                         <option value="">Válassz típust</option>
                         @foreach ($types as $type)
-                        <option value="{{ $type }}" {{ request('typeofplant') == $type ? 'selected' : '' }}>{{ $type }}
+                        <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}
                         </option>
                         @endforeach
                     </select>
@@ -71,10 +75,8 @@
         </div>
 
         <div class="articles-container">
-            <div class="searchbar">
+            <div class="searchbar-container">
                 <input type="text" name="q" id="search-text" value="{{ request('q') }}" placeholder="Keresés...">
-                <span><input type="checkbox" name="deep" id="deep" {{ request('deep') ? 'checked' : '' }}>
-                    Keresés a cikkek szövegében is</span>
                 <button type="submit" class="btn" id="search-button"><i class="fa-solid fa-search"></i></button>
             </div>
 

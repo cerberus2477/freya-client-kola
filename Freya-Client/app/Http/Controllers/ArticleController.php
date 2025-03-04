@@ -3,34 +3,61 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index()
+
+    public function home()
     {
-        // try {
-        //     $response = Http::freyarest()->get('articles'); 
-    
-        //             // Decode the JSON response
-        //     // $articles = $response->json();
+        try {
+            $response = Http::freyarest()->get('articles/', ['pageSize' => 3]);
 
-        //     if ($response->status() != Response::HTTP_OK) {
-        //         return view('404');
-        //     }
+            if ($response->failed()) {
+                throw new \Exception("Unable to fetch articles.");
+            }
 
-           
-        //     // Pass the articles to the view
-        //     return view('articles.index', compact('articles'));
-        //     //visszaalakítja a jsont modellekké
-        //     // return view('plants.index', ['articles' => collect($response->json())]);
+            $articles = $response->json()['data'];
+        } catch (\Exception $e) {
+            return view('home', ['errorMessage' => $e->getMessage()]);
+        }
 
-        // } catch (\Exception $e) {
-        //     // \Log::error('Error fetching articles: ' . $e->getMessage());
-        //     return view('error', ['message' => 'Unable to fetch articles. Please try again later.']);
-        // }
-        return view('articles.index');
+        return view('home', ['articles' => $articles]);
+    }
+
+
+    public function index(Request $request)
+    {
+        $queryParams = [
+            'pageSize' => $request->input('pageSize'),
+            'page' => $request->input('page'),
+        ];
+
+         // Make API request
+         try {
+            $response = Http::freyarest()->get('articles/', $queryParams);
+
+            if ($response->failed()) {
+                throw new \Exception("Unable to fetch articles. Please try again later.");
+            }
+
+            $articles = $response->json()['data'];
+            $pagination = $response->json()['pagination'] ?? null;
+        } catch (\Exception $e) {
+            // Catch any exception and pass the error message to the view
+            $errorMessage = $e->getMessage();
+
+            return view('articles.index', [
+                'errorMessage' => $errorMessage
+            ]);
+        }
+
+        $articles = $response->json()['data'];
+        return view('articles.index', [
+            'articles' => $articles,
+            'pagination' => $pagination,
+            'queryParams' => $queryParams
+        ]);
     }
 
     
@@ -40,7 +67,7 @@ class ArticleController extends Controller
             'q' => $request->input('q'),
             'after' => $request->input('after'),
             'before' => $request->input('before'),
-            'typeofplant' => $request->input('typeofplant'),
+            'type' => $request->input('type'),
             'plant' => $request->input('plant'),
             'category' => $request->input('category'),
             'pageSize' => $request->input('pageSize'),
