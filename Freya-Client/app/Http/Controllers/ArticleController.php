@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Parsedown;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -140,17 +141,19 @@ class ArticleController extends Controller
             $response = Http::freyarest()->get('articles/' . urlencode($title));  // Encode the title to handle special characters
 
             if ($response->failed()) {
-                throw new \Exception("Unable to fetch article. Please try again later.");
+                throw new \Exception("");
             }
 
             // Access the article from the 'data' key of the response
             $article = $response->json()['data'];
 
-            // Check if 'title' exists in the article data
             if (empty($article)) {
-                throw new \Exception("Article data is empty for some reason");
+                throw new \Exception($response->json()['message']);
             }
 
+             // Convert markdown content to HTML
+            $parsedown = new Parsedown();
+            $article['content_html'] = $parsedown->text($article['content']);
         } catch (\Exception $e) {
             // Catch any exception and pass the error message to the view
             $errorMessage = $e->getMessage();
