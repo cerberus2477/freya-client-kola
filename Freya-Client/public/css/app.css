@@ -454,22 +454,29 @@ nav a {
 
 /* ERROR */
 /* Error Message Styling */
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+
+.alert{
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: "Inter", sans-serif;
-    font-size: 1.125rem;
     text-align: center;
     width: 100%;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.success-message {
+    background-color: var(--clr-green);
+    color: var(--clr-article);
 }
 
 .error-message h2 {

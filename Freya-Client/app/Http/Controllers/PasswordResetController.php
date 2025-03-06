@@ -17,7 +17,7 @@ class PasswordResetController extends Controller
         // Pass the token and email to the view
         return view('password-reset', compact('token', 'email'));
     }
-    
+
     public function resetPassword(Request $request)
     {
 
@@ -42,8 +42,13 @@ class PasswordResetController extends Controller
         if ($response->successful()) {
             return back()->with('status', 'A jelszó sikeresen megváltoztatva!');
         } else {
-            $errorMessage = $response->json()['message'] ?? 'A jelszó megváltoztatása sikertelen. Kérjük, próbálja újra.';
-            return back()->withErrors(['error' => $errorMessage]);
-        }
+            $responseData = $response->json();
+            $errorMessages = $responseData['errors'] ?? ['error' => $responseData['message'] ?? 'A jelszó megváltoztatása sikertelen. Kérjük, próbálja újra.'];
+
+            // Return with errors and input data
+            return back()
+                ->withErrors($errorMessages) // Pass the errors array
+                ->withInput(); // Flash the input data to the session
+            }
     }
 }
