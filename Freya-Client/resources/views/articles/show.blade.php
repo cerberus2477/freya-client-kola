@@ -1,24 +1,22 @@
 @extends('layout')
 
+@section('title', $article['title'])
+
 @section('content')
     <header class="header-articles">
-        <h1 class="header-title">{{ isset($article) ? $article['title'] : 'Article Not Found' }}</h1>
+        <h1 class="header-title">{{ $article['title'] }}</h1>
     </header>
     <main>
         <div class="container">
             @if (isset($errorMessage))
-                <div class="error-message">
-                    <h2>Hiba történt</h2>
-                    <p>Nem sikerült elérni a szervert. Kérjük próbáld újra később</p>
-                    <p class="error-details">{{ $errorMessage }}</p>
-                </div>
+                <x-error-message :message="$errorMessage" />
             @else
                 <p>
-                    {{ isset($article) ? $article['description'] : 'No description available.' }}
+                    {{ $article['description'] }}
                 </p>
                 <div class="content">
                     {{-- !! is used to safely render html --}}
-                    {!! isset($article) ? $article['content_html'] : 'No content available.' !!}
+                    {!! $article['content_html'] !!}
                 </div>
             @endif
         </div>

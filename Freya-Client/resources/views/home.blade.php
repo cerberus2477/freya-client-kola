@@ -1,8 +1,10 @@
 @extends('layout')
 
+@section('title', "Freya's Garden ⸙ Főoldal")
+
 @section('content')
     <!-- the header should have a black overlay (::after)
-                                                        the image should look like a typical header image, full width, not repeating -->
+                                        the image should look like a typical header image, full width, not repeating -->
     <header class="header-main">
         <h1 class="header-title">Freya's Garden</h1>
         <p class="header-text">catchphrase lorem ipsum dolor sit amet</p>
@@ -71,11 +73,7 @@
                             class="fa-solid fa-chevron-right"></i></a>
                 </div>
                 @if (isset($errorMessage))
-                    <div class="error-message">
-                        <h2>Hiba történt</h2>
-                        <p>Nem sikerült elérni a szervert. Kérjük próbáld újra később</p>
-                        <p class="error-details">{{ $errorMessage }}</p>
-                    </div>
+                    <x-error-message :message="$errorMessage" />
                 @else
                     @foreach ($articles as $article)
                         <div class="card">

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    //a httprequest jsonban adja vissza az eredményt, ezt nekünk tömbbé kell alakítanunk
-    // private function getEntitiesFromResponse($response): array
-    // {
-    //     $body = $response->body();
-    //     $data = json_decode($body);
-    //     return $data->data;
-    // }
+    //return costum error message for curl error 7, which means the server is not reached. (presumably xampp or api not started issue) 
+    protected function handleXAMPPError(\Exception $e)
+    {
+        if (strpos($e->getMessage(), 'cURL error 7') !== false) {
+            $docPath = asset('storage/dokumentacio.docx');
+            return "A szervert nem sikerült elérni. Kérjük, ellenőrizze a MySQL és Apache szerver, valamint az API futását. 
+                    <a href='{$docPath}' target='_blank'>Dokumentáció</a>";
+        }
 
-    // lehet helyette helyben használni a ->json()-t
+        // Default error message
+        return $e->getMessage();
+    }
 }

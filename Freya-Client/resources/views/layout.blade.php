@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freya's Garden</title>
+    <title>@yield('title', "Freya's Garden")</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     @yield('styles')
@@ -15,7 +15,7 @@
 <body>
     <nav class="main-nav" data-state="closed" data-scrolled="false">
         <div class="nav-first-row">
-            <a class="nav-logo" href="{{route('home')}}">Freya's Garden</a>
+            <a class="nav-logo" href="{{ route('home') }}">Freya's Garden</a>
             <a href="#" class="btn btn-primary navbar-toggler" onclick="toggleNav();">
                 <span class="fa fa-bars"></span>
             </a>

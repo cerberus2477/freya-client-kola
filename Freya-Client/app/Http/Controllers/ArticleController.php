@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-
     public function home()
     {
         try {
             $response = Http::freyarest()->get('articles/', ['pageSize' => 3]);
 
             if ($response->failed()) {
-                throw new \Exception("Unable to fetch articles.");
+                throw new \Exception("Sikertelen kérés.");
             }
 
             $articles = $response->json()['data'];
+        // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            return view('home', ['errorMessage' => $e->getMessage()]);
+            $errorMessage = $this->handleXAMPPError($e);
+            return view('home', ['errorMessage' => $errorMessage]);
         }
 
         return view('home', ['articles' => $articles]);
@@ -34,19 +35,20 @@ class ArticleController extends Controller
             'page' => $request->input('page'),
         ];
 
-         // Make API request
-         try {
-            $response = Http::freyarest()->get('articles/', $queryParams);
+        // Make API request
+        try {
+        $response = Http::freyarest()->get('articles/', $queryParams);
 
-            if ($response->failed()) {
-                throw new \Exception("Unable to fetch articles. Please try again later.");
-            }
+        if ($response->failed()) {
+            throw new \Exception("Unable to fetch articles. Please try again later.");
+        }
 
-            $articles = $response->json()['data'];
-            $pagination = $response->json()['pagination'] ?? null;
+        $articles = $response->json()['data'];
+        $pagination = $response->json()['pagination'] ?? null;
+            
+        // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            // Catch any exception and pass the error message to the view
-            $errorMessage = $e->getMessage();
+            $errorMessage = $this->handleXAMPPError($e);
 
             return view('articles.index', [
                 'errorMessage' => $errorMessage
@@ -101,9 +103,9 @@ class ArticleController extends Controller
 
             $articles = $response->json()['data'];
             $pagination = $response->json()['pagination'] ?? null;
+        // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            // Catch any exception and pass the error message to the view
-            $errorMessage = $e->getMessage();
+            $errorMessage = $this->handleXAMPPError($e);
             
             return view('articles.filter', [
                 'errorMessage' => $errorMessage
@@ -147,16 +149,12 @@ class ArticleController extends Controller
             // Access the article from the 'data' key of the response
             $article = $response->json()['data'];
 
-            if (empty($article)) {
-                throw new \Exception($response->json()['message']);
-            }
-
              // Convert markdown content to HTML
             $parsedown = new Parsedown();
             $article['content_html'] = $parsedown->text($article['content']);
+        // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            // Catch any exception and pass the error message to the view
-            $errorMessage = $e->getMessage();
+            $errorMessage = $this->handleXAMPPError($e);
             
             return view('articles.show', [
                 'errorMessage' => $errorMessage
@@ -166,6 +164,8 @@ class ArticleController extends Controller
         // Return the view with the article data
         return view('articles.show', ['article' => $article]);
     }
+
+    
 
 
 }

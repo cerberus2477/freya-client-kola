@@ -156,8 +156,7 @@ header::after {
     background: var(--clr-bg);
 }
 
-.articles-strip
-.card {
+.articles-strip .card {
     margin-right: -1px;
 }
 
@@ -362,7 +361,8 @@ nav a {
 }
 
 .results .card {
-    flex: 1 1 calc(33.333% - 10px); /* Default to three columns */
+    flex: 1 1 calc(33.333% - 10px);
+    /* Default to three columns */
     min-height: 10rem;
     height: 100%;
     display: flex;
@@ -496,4 +496,14 @@ nav a {
     font-size: 1rem;
     color: #531117;
     margin-top: 10px;
+}
+
+
+
+
+
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
 }
