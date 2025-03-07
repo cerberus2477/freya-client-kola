@@ -1,5 +1,4 @@
-
-//reload page with filter parameters on change
+// Reload page with filter parameters on change
 
 const searchButton = document.getElementById('search-button');
 const searchText = document.getElementById('search-text');
@@ -29,15 +28,15 @@ function updateURL() {
     // filterForm.submit();
 }
 
+// Click event for search button
 searchButton.addEventListener('click', function (e) {
     e.preventDefault();
     updateURL();
+    highlightSearchTermInResults(); // Ensure search term is highlighted
 });
 
-// Logic to highlight the search term directly
-searchButton.addEventListener('click', function (e) {
-    e.preventDefault();
-
+// Function to highlight the search term
+function highlightSearchTermInResults() {
     const searchTerm = searchText.value.trim();
     if (!searchTerm) return;
 
@@ -49,31 +48,15 @@ searchButton.addEventListener('click', function (e) {
         // Highlight the search term in the text
         text.innerHTML = text.innerHTML.replace(regex, `<span class="highlight">$1</span>`);
     });
+}
 
-    filters.forEach(filter => {
-        filter.addEventListener('change', updateURL);
-    });
+// Attach change event listener to filters
+filters.forEach(filter => {
+    filter.addEventListener('change', updateURL);
+});
 
-    clearFiltersButton.addEventListener('click', function () {
-        filterForm.reset();
-        updateURL();
-    });
-
-
-    // Function to highlight the search term
-    function highlightSearchTermInResults() {
-        const searchTerm = searchText.value.trim();
-        if (!searchTerm) return;
-
-        // Select all description, title, and plant elements
-        const highlightTexts = document.querySelectorAll('.article-description, .article-title, .article-plant');
-        const regex = new RegExp(`(${searchTerm})`, 'gi');
-
-        highlightTexts.forEach(text => {
-            // Highlight the search term in the text
-            text.innerHTML = text.innerHTML.replace(regex, `<span class="highlight">$1</span>`);
-        });
-    }
-
-    //being called after the page loads
-    highlightSearchTermInResults();
+// Clear filters and reset form
+clearFiltersButton.addEventListener('click', function () {
+    filterForm.reset();
+    updateURL();
+});
