@@ -13,87 +13,87 @@
 </header>
 
 <main>
-@if (isset($errorMessage))
+    @if (isset($errorMessage))
     <x-error-message :message="$errorMessage" />
-@else
+    @else
+
     <div class="content-container">
-        {{-- ✅ FILTER FORM --}}
         <form method="GET" action="{{ route('articles.filter') }}" id="filter-form">
             <div class="filters">
                 <h2>Szűrők</h2>
 
-                {{-- ✅ Checkbox for deep search --}}
-                <div class="category-container">
-                    <span>
-                        <input type="checkbox" name="deep" id="deep" {{ request('deep') ? 'checked' : '' }} onchange="document.getElementById('filter-form').submit()">
-                        Keresés a cikkek szövegében is
-                    </span>
-                </div>
-
-                {{-- ✅ Filter by plant type --}}
                 <div class="category-container">
                     <h3>Szűrés növény alapján</h3>
 
+                    <!-- TODO: this can be a datalist too (searchable dropdown) -->
                     <label for="type">Növény típusa:</label>
-                    <select name="type" id="type" class="filter-dropdown" onchange="document.getElementById('filter-form').submit()">
+                    <select name="type" id="type" class="filter-dropdown"
+                        onchange="document.getElementById('filter-form').submit()">
                         <option value="">Válassz típust</option>
                         @foreach ($types as $type)
-                            <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                        <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}
+                        </option>
                         @endforeach
                     </select>
 
-                    {{-- ✅ Filter by plant name (with `datalist`) --}}
                     <label for="plant">Növény neve:</label>
-                    <input type="text" name="plant" id="plant" placeholder="Válassz növényt" list="plants" value="{{ request('plant') }}" onblur="document.getElementById('filter-form').submit()">
-                    
+                    <input type="text" name="plant" id="plant" placeholder="Válassz növényt" list="plants"
+                        value="{{ request('plant') }}" onblur="document.getElementById('filter-form').submit()">
+
                     <datalist id="plants">
                         @foreach ($plants as $plant)
-                            <option value="{{ $plant }}">{{ $plant }}</option>
+                        <option value="{{ $plant }}">{{ $plant }}</option>
                         @endforeach
                     </datalist>
                 </div>
 
-                {{-- ✅ Date filters --}}
                 <div class="category-container">
                     <h3>Cikk szűrő</h3>
                     <label for="after">Dátum -tól:</label>
-                    <input type="date" name="after" id="after" value="{{ request('after') }}" onchange="document.getElementById('filter-form').submit()">
+                    <input type="date" name="after" id="after" value="{{ request('after') }}"
+                        onchange="document.getElementById('filter-form').submit()">
 
                     <label for="before">Dátum -ig:</label>
-                    <input type="date" name="before" id="before" value="{{ request('before') }}" onchange="document.getElementById('filter-form').submit()">
+                    <input type="date" name="before" id="before" value="{{ request('before') }}"
+                        onchange="document.getElementById('filter-form').submit()">
 
-                    {{-- ✅ Filter by category --}}
+                    <!-- TODO: this can be a datalist too (searchable dropdown) -->
                     <label for="category">Cikk fajtája:</label>
-                    <select name="category" id="category" class="filter-dropdown" onchange="document.getElementById('filter-form').submit()">
+                    <select name="category" id="category" class="filter-dropdown"
+                        onchange="document.getElementById('filter-form').submit()">
                         <option value="">Válassz kategóriát</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
-                                {{ $category }}
-                            </option>
+                        <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                            {{ $category }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
 
-                {{-- ✅ Reset filters (keeping search text & pageSize) --}}
+                <!-- clearing the filters preserves the pagesize, q, and the deep parameter -->
+                <!-- TODO: adding deep is untested, maybe it should be something like "has" with deep -->
                 <div class="category-container">
-                    <a href="{{ route('articles.filter', ['q' => request('q'), 'pageSize' => request('pageSize')]) }}">
+                    <a
+                        href="{{ route('articles.filter', ['q' => request('q'), 'pageSize' => request('pageSize'), 'deep' => request()->has('deep')]) }}">
                         <button type="button">Szűrők törlése</button>
                     </a>
                 </div>
             </div>
-        </form> {{-- End of Filters Form --}}
 
-        {{-- ✅ SEARCH FORM --}}
-        <div class="articles-container">
-            <form method="GET" action="{{ route('articles.filter') }}">
+
+            <div class="articles-container">
                 <div class="searchbar-container">
                     <input type="text" name="q" id="search-text" value="{{ request('q') }}" placeholder="Keresés...">
+                    <span>
+                        <input type="checkbox" name="deep" id="deep" {{ request('deep') ? 'checked' : '' }}
+                            onchange="document.getElementById('filter-form').submit()">
+                        Keresés a cikkek szövegében is
+                    </span>
                     <button type="submit" class="btn"><i class="fa-solid fa-search"></i></button>
                 </div>
-            </form>
 
-            <div class="results">
-                @foreach ($articles as $article)
+                <div class="results">
+                    @foreach ($articles as $article)
                     <div class="card">
                         <p>{{ $article['author'] }}</p>
                         <p>{{ $article['updated_at'] }}</p>
@@ -106,47 +106,55 @@
                         <p>{{ $article['category'] }}</p>
                         <p class="article-plant">{{ $article['plant_name'] }} ({{ $article['type'] }})</p>
                     </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
 
-            {{-- ✅ PAGINATION FORM --}}
-            <form method="GET" action="{{ route('articles.filter') }}">
                 <div class="pages">
                     <label for="pageSize">Cikkek száma oldalanként:</label>
                     <select name="pageSize" onchange="this.form.submit()">
-                        <option value="" {{ !request()->has('pageSize') ? 'selected' : '' }}>Alapértelmezett</option>
+                        <option value="" {{ !request()->has('pageSize') ? 'selected' : '' }}>Alapértelmezett
+                        </option>
                         <option value="10" {{ request('pageSize') == 10 ? 'selected' : '' }}>10</option>
                         <option value="15" {{ request('pageSize') == 15 ? 'selected' : '' }}>15</option>
                         <option value="20" {{ request('pageSize') == 20 ? 'selected' : '' }}>20</option>
                         <option value="25" {{ request('pageSize') == 25 ? 'selected' : '' }}>25</option>
                         <option value="50" {{ request('pageSize') == 50 ? 'selected' : '' }}>50</option>
+                        <!-- <option value="all" {{ request()->has('all') ? 'selected' : '' }}>Összes</option> -->
+
                     </select>
 
-                    <p>{{ $pagination['page'] }}. oldal / {{ $pagination['totalPages'] }} oldal - Cikkek száma: {{ $pagination['total'] }}</p>
+                    <!-- if not all pages all shown, show page selection section -->
+                    @if (!request()->has('all'))
 
-                    {{-- ✅ Pagination buttons --}}
+                    <p>{{ $pagination['page'] }}. oldal / {{ $pagination['totalPages'] }} oldal - Cikkek száma:
+                        {{ $pagination['total'] }}</p>
+
+                    <!-- if its the first or last page, make the corresponding button disabled -->
                     <div class="pagination-buttons">
                         @php $query = request()->except('page'); @endphp
                         @if ($pagination['page'] > 1)
-                            <a href="{{ route('articles.filter', array_merge($query, ['page' => $pagination['page'] - 1])) }}" class="btn">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </a>
+                        <a href="{{ route('articles.filter', array_merge($query, ['page' => $pagination['page'] - 1])) }}"
+                            class="btn">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
                         @else
-                            <span class="btn btn-disabled"><i class="fa-solid fa-chevron-left"></i></span>
+                        <span class="btn btn-disabled"><i class="fa-solid fa-chevron-left"></i></span>
                         @endif
 
-                        @if ($pagination['page'] < $pagination['totalPages'])
-                            <a href="{{ route('articles.filter', array_merge($query, ['page' => $pagination['page'] + 1])) }}" class="btn">
-                                <i class="fa-solid fa-chevron-right"></i>
+                        @if ($pagination['page'] < $pagination['totalPages']) <a
+                            href="{{ route('articles.filter', array_merge($query, ['page' => $pagination['page'] + 1])) }}"
+                            class="btn">
+                            <i class="fa-solid fa-chevron-right"></i>
                             </a>
-                        @else
+                            @else
                             <span class="btn btn-disabled"><i class="fa-solid fa-chevron-right"></i></span>
-                        @endif
+                            @endif
                     </div>
+                    @endif
                 </div>
-            </form> {{-- End of Pagination Form --}}
-        </div>
+            </div>
+        </form>
     </div>
-@endif
+    @endif
 </main>
 @endsection

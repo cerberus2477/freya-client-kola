@@ -9,8 +9,8 @@ function highlightSearchTermInResults(searchTerm) {
 
     // If deepCheckbox is checked, search in '.article-description' as well
     const searchScope = document.getElementById('deep').checked
-        ? '.article-description, .article-title, .article-plant'
-        : '.article-title, .article-plant';
+        ? '.article-description, .article-title a, .article-plant'
+        : '.article-title a, .article-plant';
 
     const highlightTexts = document.querySelectorAll(searchScope);
     const regex = new RegExp(`(${searchTerm})`, 'gi');
