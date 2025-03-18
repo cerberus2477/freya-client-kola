@@ -27,61 +27,9 @@ class ArticleController extends Controller
 
         return view('home', ['articles' => $articles]);
     }
+    
 
-
-    public function index(Request $request)
-    {
-        $queryParams = [
-            'pageSize' => $request->input('pageSize'),
-            'page' => $request->input('page'),
-        ];
-
-        // Make API request
-        try {
-        $response = Http::freyarest()->get('articles/', $queryParams);
-
-        if ($response->failed()) {
-            throw new \Exception("Unable to fetch articles. Please try again later.");
-        }
-
-        $articles = $response->json()['data'];
-        $pagination = $response->json()['pagination'] ?? null;
-            
-        // Catch any exception and pass the error message to the view
-        } catch (\Exception $e) {
-            $errorMessage = $this->handleXAMPPError($e);
-
-            return view('articles.index', [
-                'errorMessage' => $errorMessage
-            ]);
-        }
-
-        $articles = $response->json()['data'];
-        return view('articles.index', [
-            'articles' => $articles,
-            'pagination' => $pagination,
-            'queryParams' => $queryParams
-        ]);
-    }
-
-        
-        // ?all or ?pageSize={pageSize}&page={page}, but not both
-        // if ($request->input('pageSize') === 'all') {
-        //     $queryParams = array_filter($queryParams, fn($key) => $key !== 'pageSize', ARRAY_FILTER_USE_KEY);
-  
-        //     $queryParams['all'] = true;
-        // } else {
-        //     $queryParams['pageSize'] = $request->input('pageSize');
-        //     $queryParams['page'] = $request->input('page');
-        // }
-
-
-                // // Check if only the `page` parameter is different from the request input, remove `page` if anything else changed (so we jump to first page of results)
-                // if ($request->query() != $request->except(['page'])) {
-                //     unset($parameters['page']); 
-                // }
-
-    public function filter(Request $request)
+    public function search(Request $request)
     {
         // Collect all parameters for the API request
         $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize']);
@@ -103,7 +51,7 @@ class ArticleController extends Controller
 
         // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            return view('articles.filter', [
+            return view('articles.search', [
                 'errorMessage' => $this->handleXAMPPError($e)
             ]);
         }

@@ -170,17 +170,22 @@ header::after {
     padding: var(--padding-btn);
     border-radius: var(--border-radius-s);
     cursor: pointer;
-    transition: 0.2s;
     border: 2px solid var(--clr-dark-green);
     background-color: var(--clr-dark-green);
     color: var(--clr-bg);
     display: inline-block;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
     background-color: var(--clr-bg);
     color: var(--clr-dark-green);
 }
+
+/* .btn:focus{
+    border-color: var(--clr-accent);
+    outline: none;
+} */
 
 .btn-primary {
     background-color: var(--clr-burgundy);
@@ -334,20 +339,289 @@ nav a {
     /* mix-blend-mode: difference; */
 }
 
-.content-container {
-    /* display: flex; */
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    /* gap: 2rem; */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* FORM ---------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* Input Fields */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--clr-dark-green);
+    border-radius: 4px;
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
+    font-size: 1rem;
 }
 
-/* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
-.articles-container {
-    /* display: flex; */
-    /* flex-direction: column; */
-    max-width: 1280px;
+
+
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    form {
+        padding: 1.5rem;
+    }
+
+    form input {
+        font-size: 0.9rem;
+    }
 }
+
+
+/* Styling for the select element to match other inputs */
+form select {
+    width: 100%;
+    /* Full width of the container */
+    padding: 0.8rem;
+    /* Padding for better space inside */
+    margin-bottom: 1.5rem;
+    /* Space below the select */
+    border: 1px solid var(--clr-dark-green);
+    /* Border matching other form elements */
+    border-radius: 4px;
+    /* Rounded corners for consistency */
+    background-color: var(--clr-bg);
+    /* Dark background */
+    color: var(--clr-text);
+    /* Light text for contrast */
+    font-size: 1rem;
+    /* Standard font size */
+    font-family: Arial, sans-serif;
+    /* Consistent font family */
+    appearance: none;
+    /* Remove default dropdown arrow in most browsers */
+    -webkit-appearance: none;
+    /* Safari and Chrome */
+    -moz-appearance: none;
+    /* Firefox */
+    outline: none;
+    /* Remove default focus outline */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Smooth transition on focus */
+    position: relative;
+    /* To position the custom arrow */
+    padding-right: 2.5rem;
+    /* Space for the custom arrow */
+}
+
+/* Styling for select in focus state */
+form select:focus {
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 8px rgba(116, 37, 213, 0.3);
+}
+
+form select::-ms-expand {
+    display: none;
+}
+
+form select::after {
+    content: '\25BC';
+    /* Unicode character for a downwards triangle */
+    font-size: 1.2rem;
+    color: var(--clr-accent);
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Center the arrow vertically */
+    pointer-events: none;
+    /* Prevent arrow from blocking clicks */
+}
+
+
+form p {
+    margin: 1rem 0;
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Adjusted layout for content-container */
+.content-container {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+/* Sidebar filter styling */
+.filters {
+    width: 300px;
+    min-width: 250px;
+    background-color: var(--clr-dark-green);
+    padding: var(--padding-main);
+    color: var(--clr-bg);
+    border-radius: var(--border-radius-m);
+    height: fit-content;
+    position: sticky;
+    top: 1rem;
+
+
+    /* height: fit-content;
+    position: sticky;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--clr-dark-green);
+    padding: var(--padding-card);
+    color: var(--clr-bg);
+    margin-right: 2rem;
+    float: left; */
+}
+
+/* Articles take remaining space */
+.articles-container {
+    flex: 1;
+}
+
+/* Search bar styling */
+.searchbar-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: var(--padding-main);
+    width: 100%;
+    padding: var(--padding-card);
+    border: 2px solid var(--clr-dark-green);
+    align-items: center;
+
+    /* display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid darkgreen; */
+}
+
+.searchbar-container input[type="text"] {
+    flex: 1;
+}
+
+
+/* Responsive filter sidebar */
+@media screen and (max-width: 900px) {
+    .content-container {
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+        display: none;
+        position: relative;
+        padding: var(--padding-container);
+    }
+
+    .filters.active {
+        display: block;
+    }
+
+    .filter-toggle {
+        display: block;
+        text-align: center;
+        background-color: var(--clr-dark-green);
+        color: var(--clr-bg);
+        padding: var(--padding-btn);
+        cursor: pointer;
+        border-radius: var(--border-radius-m);
+        margin-bottom: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 .results {
     z-index: 0;
@@ -399,33 +673,7 @@ nav a {
     width: 100%;
 }
 
-/*SEARCHBAR*/
-.searchbar-container {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid darkgreen;
-}
-
-.searchbar-container input[type="text"] {
-    flex: 1;
-}
-
 /*FILTERS*/
-.filters {
-    height: fit-content;
-    position: sticky;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: var(--clr-dark-green);
-    padding: var(--padding-card);
-    color: var(--clr-bg);
-    margin-right: 2rem;
-    float: left;
-}
-
 .category-container {
     /* padding: 1vh;
     display: flex;
@@ -447,6 +695,17 @@ nav a {
     width: 100%;
 }
 
+/* Filter section - Wrap label and input together */
+.category-container label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+
+
 /*Pages*/
 
 
@@ -455,7 +714,7 @@ nav a {
 /* ERROR */
 /* Error Message Styling */
 
-.alert{
+.alert {
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
@@ -470,7 +729,7 @@ nav a {
 .error-message {
     background-color: #f8d7da;
     color: #721c24;
-    border: 1px solid #f5c6cb;   
+    border: 1px solid #f5c6cb;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -497,6 +756,8 @@ nav a {
     color: #531117;
     margin-top: 10px;
 }
+
+
 
 
 
