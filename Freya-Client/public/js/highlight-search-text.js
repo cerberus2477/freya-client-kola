@@ -19,3 +19,13 @@ function highlightSearchTermInResults(searchTerm) {
         text.innerHTML = text.textContent.replace(regex, `<span class="highlight">$1</span>`);
     });
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const filterToggleBtn = document.getElementById("filter-toggle-btn");
+    const filters = document.getElementById("filters");
+
+    filterToggleBtn.addEventListener("click", () => {
+        filters.classList.toggle("active");
+    });
+});

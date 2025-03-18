@@ -27,7 +27,7 @@ class ArticleController extends Controller
 
         return view('home', ['articles' => $articles]);
     }
-    
+        
 
     public function search(Request $request)
     {
@@ -62,7 +62,7 @@ class ArticleController extends Controller
         $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
         
         // Return view with data
-        return view('articles.filter', compact('types', 'plants', 'categories', 'articles', 'pagination'));
+        return view('articles.search', compact('types', 'plants', 'categories', 'articles', 'pagination'));
     }
     
     // /articles/{title}    

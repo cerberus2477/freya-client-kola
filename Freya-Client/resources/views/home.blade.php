@@ -69,7 +69,7 @@
         <div class="articles-strip">
             <div class="card">
                 <h2>Friss cikkek</h2>
-                <a class="btn" href="{{ route('articles.filter') }}">Többi cikk <i
+                <a class="btn" href="{{ route('articles.search') }}">Többi cikk <i
                         class="fa-solid fa-chevron-right"></i></a>
             </div>
             @if (isset($errorMessage))

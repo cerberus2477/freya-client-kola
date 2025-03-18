@@ -24,6 +24,7 @@
     --padding-btn: 0.5rem 1rem;
     --padding-card: 1rem 1.5rem;
 
+    --gutter: 2rem;
     /* Border radius values */
     --border-radius-s: 4px;
     --border-radius-m: 8px;
@@ -381,7 +382,7 @@ form input[type="date"],
 form input[type="number"] {
     width: 100%;
     padding: 0.8rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--gutter);
     border: 1px solid var(--clr-dark-green);
     border-radius: 4px;
     background-color: var(--clr-bg);
@@ -412,7 +413,7 @@ form select {
     /* Full width of the container */
     padding: 0.8rem;
     /* Padding for better space inside */
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--gutter);
     /* Space below the select */
     border: 1px solid var(--clr-dark-green);
     /* Border matching other form elements */
@@ -522,11 +523,13 @@ form p {
 
 
 
-/* Adjusted layout for content-container */
 .content-container {
-    display: flex;
     max-width: 1280px;
-    margin: 0 auto;
+    margin-inline: auto;
+}
+
+.filters-articles-container {
+    display: flex;
     gap: 2rem;
 }
 
@@ -535,23 +538,12 @@ form p {
     width: 300px;
     min-width: 250px;
     background-color: var(--clr-dark-green);
-    padding: var(--padding-main);
+    padding: var(--padding-container);
     color: var(--clr-bg);
     border-radius: var(--border-radius-m);
     height: fit-content;
     position: sticky;
     top: 1rem;
-
-
-    /* height: fit-content;
-    position: sticky;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: var(--clr-dark-green);
-    padding: var(--padding-card);
-    color: var(--clr-bg);
-    margin-right: 2rem;
-    float: left; */
 }
 
 /* Articles take remaining space */
@@ -563,51 +555,57 @@ form p {
 .searchbar-container {
     display: flex;
     gap: 1rem;
-    margin-bottom: var(--padding-main);
+    margin-bottom: var(--gutter);
     width: 100%;
-    padding: var(--padding-card);
+    padding: var(--padding-container);
     border: 2px solid var(--clr-dark-green);
     align-items: center;
-
-    /* display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid darkgreen; */
 }
 
 .searchbar-container input[type="text"] {
     flex: 1;
 }
 
+.filter-toggle-btn {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--clr-dark-green);
+    color: var(--clr-bg);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius-m);
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
 
-/* Responsive filter sidebar */
+/* Show button only on smaller screens */
 @media screen and (max-width: 900px) {
-    .content-container {
-        flex-direction: column;
+    .filter-toggle-btn {
+        display: block;
     }
 
     .filters {
-        width: 100%;
         display: none;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--clr-dark-green);
         padding: var(--padding-container);
+        overflow-y: auto;
+        z-index: 99;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
     }
 
     .filters.active {
         display: block;
-    }
-
-    .filter-toggle {
-        display: block;
-        text-align: center;
-        background-color: var(--clr-dark-green);
-        color: var(--clr-bg);
-        padding: var(--padding-btn);
-        cursor: pointer;
-        border-radius: var(--border-radius-m);
-        margin-bottom: 1rem;
+        transform: translateX(0);
     }
 }
 
@@ -715,10 +713,10 @@ form p {
 /* Error Message Styling */
 
 .alert {
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    border-radius: var(--border-radius-m);
+    padding: var(--padding-card);
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
     text-align: center;
     width: 100%;
     max-width: 600px;
@@ -742,13 +740,6 @@ form p {
     font-size: 1.5rem;
     font-weight: bold;
     color: #721c24;
-    margin-bottom: 10px;
-}
-
-.error-message p {
-    font-size: 1.125rem;
-    font-weight: 400;
-    margin: 10px 0;
 }
 
 .error-message .error-details {

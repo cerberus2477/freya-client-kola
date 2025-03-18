@@ -13,13 +13,20 @@
 </header>
 
 <main>
+    <!-- if there is an error, display it instead of the page contents -->
     @if (isset($errorMessage))
     <x-error-message :message="$errorMessage" />
     @else
 
-    <form class="content-container" method="GET" action="{{ route('articles.search') }}" id="filter-form">
+    <form class="content-container filters-articles-container" method="GET" action="{{ route('articles.search') }}"
+        id="filter-form">
         <!-- only display filters if there has been a search  - hide them initially   -->
         @if (count(request()->except(['page', 'pageSize'])) > 0)
+
+        <button id="filter-toggle-btn" class="btn filter-toggle-btn">
+            <i class="fa-solid fa-filter"></i> Szűrők
+        </button>
+
         <div class="filters">
             <h2>Szűrők</h2>
 
