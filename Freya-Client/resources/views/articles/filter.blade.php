@@ -85,7 +85,7 @@
                 <div class="searchbar-container">
                     <input type="text" name="q" id="search-text" value="{{ request('q') }}" placeholder="Keresés...">
                     <span>
-                        <input type="checkbox" name="deep" id="deep" {{ request('deep') ? 'checked' : '' }}
+                        <input type="checkbox" name="deep" id="deep" {{ request()->has('deep') ? 'checked' : '' }}
                             onchange="document.getElementById('filter-form').submit()">
                         Keresés a cikkek szövegében is
                     </span>
@@ -119,7 +119,7 @@
                         <option value="20" {{ request('pageSize') == 20 ? 'selected' : '' }}>20</option>
                         <option value="25" {{ request('pageSize') == 25 ? 'selected' : '' }}>25</option>
                         <option value="50" {{ request('pageSize') == 50 ? 'selected' : '' }}>50</option>
-                        <!-- <option value="all" {{ request()->has('all') ? 'selected' : '' }}>Összes</option> -->
+                        <!-- TODO: <option value="all" {{ request()->has('all') ? 'selected' : '' }}>Összes</option> -->
 
                     </select>
 

@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     highlightSearchTermInResults(searchTerm);
 });
 
-// Function to highlight the search term
 function highlightSearchTermInResults(searchTerm) {
     if (!searchTerm) return;
 
@@ -15,6 +14,7 @@ function highlightSearchTermInResults(searchTerm) {
     const highlightTexts = document.querySelectorAll(searchScope);
     const regex = new RegExp(`(${searchTerm})`, 'gi');
 
+    // put a highlight span around the results
     highlightTexts.forEach(text => {
         text.innerHTML = text.textContent.replace(regex, `<span class="highlight">$1</span>`);
     });

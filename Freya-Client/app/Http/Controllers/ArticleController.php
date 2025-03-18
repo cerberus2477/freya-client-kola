@@ -15,7 +15,7 @@ class ArticleController extends Controller
             $response = Http::freyarest()->get('articles/', ['pageSize' => 3]);
 
             if ($response->failed()) {
-                throw new \Exception("Sikertelen kérés.");
+                throw new \Exception("Unable to fetch the 3 most recent articles. Please try again later.");
             }
 
             $articles = $response->json()['data'];
@@ -76,70 +76,18 @@ class ArticleController extends Controller
         // }
 
 
-    // public function filter(Request $request)
-    // {
-    //     // TODO: ki kell szűrni az oldalszámot?
-    //     $queryParams = $request->except(['page']);
-
-
-    //     //deep is a flag in the api, it does not have value (on, or true/false). we are making it the correct format from the incoming request
-    //     if (!$request->has('deep')) {
-    //         unset($queryParams['deep']);
-    //     }
-
-    //     if ($request->has('deep')) {
-    //         $queryParams['deep'] = true; 
-    //     }
-
-    //     // Remove empty values to keep URL clean
-    //     $queryParams = array_filter($queryParams, fn($value) => $value !== null && $value !== '');
-    //     Log::info("Szűrt queryParams:", $queryParams);
-
-    //             // Logoljuk az API-kérés URL-jét és paramétereit
-    //     $apiUrl = 'articles/search?' . http_build_query($queryParams);
-    //     Log::info("API request: " . $apiUrl);
-
-    //     // Make API request
-    //     try {
-    //         $response = Http::freyarest()->get('articles/search', $queryParams);
-
-    //         if ($response->failed()) {
-    //             throw new \Exception("Unable to fetch articles. Please try again later.");
-    //         }
-
-    //         $articles = $response->json()['data'];
-    //         $pagination = $response->json()['pagination'] ?? null;
-
-    //     // Catch any exception and pass the error message to the view
-    //     } catch (\Exception $e) {
-    //         return view('articles.filter', [
-    //             'errorMessage' => $this->handleXAMPPError($e)
-    //         ]);
-    //     }
-
-    //     // Fetch responses from api - get only the name field in data
-    //     $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
-    //     $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
-    //     $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
-
-    //     //csak azokat add vissza aminek van értéke. oldd meg hogy működjön a filter oldal így is. ha van pl beállított q paraméter, akkor a search inputnak legyen az az értéke.
-    //     return view('articles.filter', compact('articles', 'types', 'plants', 'categories', 'pagination', 'queryParams'));
-    // }
-
+                // // Check if only the `page` parameter is different from the request input, remove `page` if anything else changed (so we jump to first page of results)
+                // if ($request->query() != $request->except(['page'])) {
+                //     unset($parameters['page']); 
+                // }
 
     public function filter(Request $request)
     {
-        // Fetch filter options from the API - get only the name field in data
-        $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
-        $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
-        $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
-
         // Collect all parameters for the API request
-        $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize', 'page']);
+        $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize']);
 
-        // Reset `page` (jump to first page) if query or filters change (not `pageSize`)
-        if ($request->except(['page', 'pageSize']) !== $request->only(['page', 'pageSize'])) {
-            unset($parameters['page']);
+        if ($request->has('page')) {
+            $parameters['page'] = $request->query('page');
         }
 
         // Make API request
@@ -147,7 +95,7 @@ class ArticleController extends Controller
             $response = Http::freyarest()->get('articles/search', $parameters);
 
             if ($response->failed()) {
-                throw new \Exception("Unable to fetch articles. Please try again later.");
+                throw new \Exception("Unable to fetch matching articles. Please try again later.");
             }
 
             $articles = $response->json()['data'] ?? [];
@@ -160,10 +108,15 @@ class ArticleController extends Controller
             ]);
         }
 
+        // Fetch filter options from the API - get only the name field in data
+        $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
+        $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
+        $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
+        
         // Return view with data
         return view('articles.filter', compact('types', 'plants', 'categories', 'articles', 'pagination'));
     }
-
+    
     // /articles/{title}    
     public function show($title) 
     {
