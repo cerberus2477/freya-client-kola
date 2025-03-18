@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Parsedown;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -14,7 +15,7 @@ class ArticleController extends Controller
             $response = Http::freyarest()->get('articles/', ['pageSize' => 3]);
 
             if ($response->failed()) {
-                throw new \Exception("Sikertelen kérés.");
+                throw new \Exception("Unable to fetch the 3 most recent articles. Please try again later.");
             }
 
             $articles = $response->json()['data'];
@@ -26,115 +27,44 @@ class ArticleController extends Controller
 
         return view('home', ['articles' => $articles]);
     }
+        
 
-
-    public function index(Request $request)
+    public function search(Request $request)
     {
-        $queryParams = [
-            'pageSize' => $request->input('pageSize'),
-            'page' => $request->input('page'),
-        ];
+        // Collect all parameters for the API request
+        $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize']);
+
+        if ($request->has('page')) {
+            $parameters['page'] = $request->query('page');
+        }
 
         // Make API request
         try {
-        $response = Http::freyarest()->get('articles/', $queryParams);
-
-        if ($response->failed()) {
-            throw new \Exception("Unable to fetch articles. Please try again later.");
-        }
-
-        $articles = $response->json()['data'];
-        $pagination = $response->json()['pagination'] ?? null;
-            
-        // Catch any exception and pass the error message to the view
-        } catch (\Exception $e) {
-            $errorMessage = $this->handleXAMPPError($e);
-
-            return view('articles.index', [
-                'errorMessage' => $errorMessage
-            ]);
-        }
-
-        $articles = $response->json()['data'];
-        return view('articles.index', [
-            'articles' => $articles,
-            'pagination' => $pagination,
-            'queryParams' => $queryParams
-        ]);
-    }
-
-    
-    public function filter(Request $request)
-    {
-        $queryParams = [
-            'q' => $request->input('q'),
-            'after' => $request->input('after'),
-            'before' => $request->input('before'),
-            'type' => $request->input('type'),
-            'plant' => $request->input('plant'),
-            'category' => $request->input('category'),
-            'pageSize' => $request->input('pageSize'),
-            'page' => $request->input('page'),
-            'deep' => $request->input('deep')
-        ];
-    
-        // ?all or ?pageSize={pageSize}&page={page}, but not both
-        // if ($request->input('pageSize') === 'all') {
-        //     $queryParams = array_filter($queryParams, fn($key) => $key !== 'pageSize', ARRAY_FILTER_USE_KEY);
-  
-        //     $queryParams['all'] = true;
-        // } else {
-        //     $queryParams['pageSize'] = $request->input('pageSize');
-        //     $queryParams['page'] = $request->input('page');
-        // }
-
-        // Remove empty values
-        $queryParams = array_filter($queryParams, fn($value) => !is_null($value) && $value !== '');
-
-    
-
-        // Make API request
-        try {
-            $response = Http::freyarest()->get('articles/search', $queryParams);
+            $response = Http::freyarest()->get('articles/search', $parameters);
 
             if ($response->failed()) {
-                throw new \Exception("Unable to fetch articles. Please try again later.");
+                throw new \Exception("Unable to fetch matching articles. Please try again later.");
             }
 
-            $articles = $response->json()['data'];
+            $articles = $response->json()['data'] ?? [];
             $pagination = $response->json()['pagination'] ?? null;
+
         // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            $errorMessage = $this->handleXAMPPError($e);
-            
-            return view('articles.filter', [
-                'errorMessage' => $errorMessage
+            return view('articles.search', [
+                'errorMessage' => $this->handleXAMPPError($e)
             ]);
         }
 
-
-        $articles = $response->json()['data'];
-    
-        // Fetch responses from api
-        $typesResponse = Http::freyarest()->get('types')->json();
-        $plantsResponse = Http::freyarest()->get('plants')->json();
-        $categoriesResponse = Http::freyarest()->get('categories')->json();
-
-        //get only the name field in data
-        $types = array_map(fn($type) => $type['name'], $typesResponse['data'] ?? []);
-        $plants = array_map(fn($plant) => $plant['name'], $plantsResponse['data'] ?? []);
-        $categories = array_map(fn($category) => $category['name'], $categoriesResponse['data'] ?? []);
-    
-        return view('articles.filter', [
-            'articles' => $articles,
-            'types' => $types,
-            'plants' => $plants,
-            'categories' => $categories,
-            'pagination' => $pagination,
-            'queryParams' => $queryParams
-        ]);
+        // Fetch filter options from the API - get only the name field in data
+        $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
+        $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
+        $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
+        
+        // Return view with data
+        return view('articles.search', compact('types', 'plants', 'categories', 'articles', 'pagination'));
     }
-
+    
     // /articles/{title}    
     public function show($title) 
     {
