@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Parsedown;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -63,21 +64,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    
-    public function filter(Request $request)
-    {
-        $queryParams = [
-            'q' => $request->input('q'),
-            'after' => $request->input('after'),
-            'before' => $request->input('before'),
-            'type' => $request->input('type'),
-            'plant' => $request->input('plant'),
-            'category' => $request->input('category'),
-            'pageSize' => $request->input('pageSize'),
-            'page' => $request->input('page'),
-            'deep' => $request->input('deep')
-        ];
-    
+        
         // ?all or ?pageSize={pageSize}&page={page}, but not both
         // if ($request->input('pageSize') === 'all') {
         //     $queryParams = array_filter($queryParams, fn($key) => $key !== 'pageSize', ARRAY_FILTER_USE_KEY);
@@ -88,51 +75,93 @@ class ArticleController extends Controller
         //     $queryParams['page'] = $request->input('page');
         // }
 
-        // Remove empty values
-        $queryParams = array_filter($queryParams, fn($value) => !is_null($value) && $value !== '');
 
-    
+    // public function filter(Request $request)
+    // {
+    //     // TODO: ki kell szűrni az oldalszámot?
+    //     $queryParams = $request->except(['page']);
+
+
+    //     //deep is a flag in the api, it does not have value (on, or true/false). we are making it the correct format from the incoming request
+    //     if (!$request->has('deep')) {
+    //         unset($queryParams['deep']);
+    //     }
+
+    //     if ($request->has('deep')) {
+    //         $queryParams['deep'] = true; 
+    //     }
+
+    //     // Remove empty values to keep URL clean
+    //     $queryParams = array_filter($queryParams, fn($value) => $value !== null && $value !== '');
+    //     Log::info("Szűrt queryParams:", $queryParams);
+
+    //             // Logoljuk az API-kérés URL-jét és paramétereit
+    //     $apiUrl = 'articles/search?' . http_build_query($queryParams);
+    //     Log::info("API request: " . $apiUrl);
+
+    //     // Make API request
+    //     try {
+    //         $response = Http::freyarest()->get('articles/search', $queryParams);
+
+    //         if ($response->failed()) {
+    //             throw new \Exception("Unable to fetch articles. Please try again later.");
+    //         }
+
+    //         $articles = $response->json()['data'];
+    //         $pagination = $response->json()['pagination'] ?? null;
+
+    //     // Catch any exception and pass the error message to the view
+    //     } catch (\Exception $e) {
+    //         return view('articles.filter', [
+    //             'errorMessage' => $this->handleXAMPPError($e)
+    //         ]);
+    //     }
+
+    //     // Fetch responses from api - get only the name field in data
+    //     $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
+    //     $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
+    //     $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
+
+    //     //csak azokat add vissza aminek van értéke. oldd meg hogy működjön a filter oldal így is. ha van pl beállított q paraméter, akkor a search inputnak legyen az az értéke.
+    //     return view('articles.filter', compact('articles', 'types', 'plants', 'categories', 'pagination', 'queryParams'));
+    // }
+
+
+    public function filter(Request $request)
+    {
+        // Fetch filter options from the API - get only the name field in data
+        $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
+        $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
+        $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
+
+        // Collect all parameters for the API request
+        $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize', 'page']);
+
+        // Reset `page` (jump to first page) if query or filters change (not `pageSize`)
+        if ($request->except(['page', 'pageSize']) !== $request->only(['page', 'pageSize'])) {
+            unset($parameters['page']);
+        }
 
         // Make API request
         try {
-            $response = Http::freyarest()->get('articles/search', $queryParams);
+            $response = Http::freyarest()->get('articles/search', $parameters);
 
             if ($response->failed()) {
                 throw new \Exception("Unable to fetch articles. Please try again later.");
             }
 
-            $articles = $response->json()['data'];
+            $articles = $response->json()['data'] ?? [];
             $pagination = $response->json()['pagination'] ?? null;
+
         // Catch any exception and pass the error message to the view
         } catch (\Exception $e) {
-            $errorMessage = $this->handleXAMPPError($e);
-            
             return view('articles.filter', [
-                'errorMessage' => $errorMessage
+                'errorMessage' => $this->handleXAMPPError($e)
             ]);
         }
 
-
-        $articles = $response->json()['data'];
-    
-        // Fetch responses from api
-        $typesResponse = Http::freyarest()->get('types')->json();
-        $plantsResponse = Http::freyarest()->get('plants')->json();
-        $categoriesResponse = Http::freyarest()->get('categories')->json();
-
-        //get only the name field in data
-        $types = array_map(fn($type) => $type['name'], $typesResponse['data'] ?? []);
-        $plants = array_map(fn($plant) => $plant['name'], $plantsResponse['data'] ?? []);
-        $categories = array_map(fn($category) => $category['name'], $categoriesResponse['data'] ?? []);
-    
-        return view('articles.filter', [
-            'articles' => $articles,
-            'types' => $types,
-            'plants' => $plants,
-            'categories' => $categories,
-            'pagination' => $pagination,
-            'queryParams' => $queryParams
-        ]);
+        // Return view with data
+        return view('articles.filter', compact('types', 'plants', 'categories', 'articles', 'pagination'));
     }
 
     // /articles/{title}    
