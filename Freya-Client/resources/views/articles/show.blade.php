@@ -11,7 +11,22 @@
             @if (isset($errorMessage))
                 <x-error-message :message="$errorMessage" />
             @else
-                <p>
+            
+                <div class="article-data">
+                    <p>
+                        {{ $article['updated_at'] }}
+                    </p>
+                    <p>
+                        {{ $article['author'] }}
+                    </p>
+                @if (isset($article['plant_name']))
+                    <p>
+                        {{ $article['plant_name'] }}
+                    </p>
+                @endif
+                </div>
+
+                <p class="article-description">
                     {{ $article['description'] }}
                 </p>
                 <div class="content">

@@ -11,6 +11,7 @@
     --clr-green-2: #81D366;
     --clr-green-3: #DFF29D;
     --clr-dark-green: #0F4020;
+    --clr-gray: rgb(153, 162, 148);
     /* --clr-bg-light: #fcf6ee; */
     /* --clr-highlight: rgb(113, 147, 242);
     --clr-error: rgb(255, 67, 67);
@@ -18,7 +19,9 @@
 
     --clr-nav: var(--clr-text);
 
-    --padding-main: 5rem;
+    --padding-main: 5rem 5rem 13rem 5rem;
+    --padding-main-r1: 3rem 3rem 13rem 3rem;
+    --padding-main-r2: 2rem 2rem 13rem 2rem;
     --padding-container: 2rem 4rem 1rem 4rem;
     --padding-strip: 2rem 0;
     --padding-btn: 0.5rem 1rem;
@@ -47,14 +50,19 @@
     src: url(../fonts/nocturne/nocturne/NocturneSerif/NocturneSerif-Regular.ttf);
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
+
 h1, h2, h3, h4{
     font-family: Nocturne;
+    font-weight: bold;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Faculty Glyphic", sans-serif;
+    font-weight: 100;
 }
 
 body {
@@ -69,18 +77,33 @@ body {
     position: relative;
 }
 
+::-moz-selection, ::selection {
+    color: var(--clr-bg);
+    background: var(--clr-green);
+}
 
 main {
     padding: var(--padding-main);
+    height: 100%;
     /* display: flex; */
 }
-
+@media screen and (max-width: 900px) {
+    main {
+        padding: var(--padding-main-r1);
+    }
+}
+@media screen and (max-width: 600px) {
+    main {
+        padding: var(--padding-main-r2);
+    }
+}
 footer {
     padding: var(--padding-container);
     background-color: var(--clr-text);
     color: var(--clr-bg);
     bottom: 0;
     width: 100%;
+    position: absolute;
 }
 
 /* HEADER */
@@ -98,6 +121,7 @@ header {
 header * {
     position: relative;
     z-index: 1;
+    
 }
 
 header::after {
@@ -115,11 +139,17 @@ header::after {
 }
 
 .header-main {
-    height: clamp(500px, 80vh, 1000px);
+    height: 100vh;
 }
 
-.header-articles {
-    height: 30vh;
+@media only screen and (max-width: 900px) {
+    .header-main {
+        height: calc(300px + 20vh);
+    }
+}
+
+.header-articles, .header-errorpage {
+    height: 40vh;
 }
 
 .header-title {
@@ -131,7 +161,6 @@ header::after {
 }
 
 
-
 /* ACCOMPLISHMENTS STRIP */
 .accomplishments-strip {
     display: flex;
@@ -140,6 +169,7 @@ header::after {
     padding: var(--padding-strip);
     background: var(--clr-dark-green);
     color: var(--clr-bg);
+    scroll-margin-top: 20rem;
 }
 
 .accomplishments-strip div span {
@@ -155,16 +185,18 @@ header::after {
     /* gap: 1rem; */
     border-collapse: collapse;
     padding: var(--padding-strip);
-    border-top: 2px solid var(--clr-dark-green);
-    border-bottom: 2px solid var(--clr-dark-green);
 }
 
-/* .articles-strip  */
 .card {
     padding: 1rem;
     border: 1px solid var(--clr-dark-green);
     background: var(--clr-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
+
 
 .articles-strip .card {
     margin-right: -1px;
@@ -174,10 +206,32 @@ header::after {
     grid-column: span 4;
     text-align: left;
 }
+
+h3 a{
+    color: var(--clr-dark-green);
+}
+
+.card h3 {
+    width: 100%;
+    text-align: center;
+}
+
+.card p {
+    font-style: italic;
+    text-align: center;
+}
+
+@media screen and (max-width: 1100px) {
+    .articles-strip {
+        grid-template-columns: 1fr;
+    }
+}
 /*SECTIONS(Rólunk mainly)*/
 section{
     padding: var(--padding-strip);
+    scroll-margin-top: 10rem;
 }
+
 /* BUTTONS */
 .btn {
     padding: var(--padding-btn);
@@ -264,6 +318,9 @@ nav a {
 
 .nav-logo {
     margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .main-nav {
@@ -275,7 +332,6 @@ nav a {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-
     align-items: center;
 
 }
@@ -292,6 +348,10 @@ nav a {
     align-items: center;
 }
 
+.nav-logo img{
+    margin-right: 0;
+    width: 4rem;
+}
 @media screen and (max-width: 800px) {
 
     .main-nav {
@@ -384,7 +444,7 @@ nav a {
 
 
 
-* FORM ---------------------------------------------------------------------------------------------------------------------------------------------- */
+/* FORM ---------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Input Fields */
 form input[type="text"],
@@ -649,10 +709,12 @@ form p {
     /* Default to three columns */
     min-height: 10rem;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+
+}
+
+.highlight {
+    background-color: var(--clr-green-2);
+    font-weight: bold;
 }
 
 /* Two columns if less than 1400px */
@@ -667,16 +729,6 @@ form p {
     .results .card {
         flex: 1 1 100%;
     }
-}
-
-
-
-.results .card h3 {
-    width: 100%;
-}
-
-.results .card p {
-    font-style: italic;
 }
 
 .article-description {
@@ -713,7 +765,19 @@ form p {
     margin-bottom: 0.5rem;
 }
 
+/*SHOW 1 ARTICLE*/
 
+.article-data{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+}
+.article-data p{
+    color: var(--clr-gray);
+    font-style: italic;
+    font-weight: lighter;
+}
 
 
 /*Pages*/
@@ -761,13 +825,3 @@ form p {
 }
 
 
-
-
-
-
-
-
-.highlight {
-    background-color: yellow;
-    font-weight: bold;
-}

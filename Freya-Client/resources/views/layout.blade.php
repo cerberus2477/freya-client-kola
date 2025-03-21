@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', "Freya's Garden")</title>
+    <link rel="shortcut icon" href="{{ asset('img/LogoTransparentBlack32x32.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     @yield('styles')
@@ -15,13 +16,16 @@
 <body>
     <nav class="main-nav" data-state="closed" data-scrolled="false">
         <div class="nav-first-row">
-            <a class="nav-logo" href="{{ route('home') }}">Freya's Garden</a>
+        <a class="nav-logo" href="{{ route('home') }}">
+            <img src="{{ asset('img/LogoTransparentWhite244x244.png') }}" alt="logo">
+            Freya's Garden
+        </a>
             <a href="#" class="btn btn-primary navbar-toggler" onclick="toggleNav();">
                 <span class="fa fa-bars"></span>
             </a>
         </div>
-        <a href=""><i class="fa-solid fa-about-us"></i> Rólunk</a>
-        <a href=""><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
+        <a href="{{ route('home') }}#about"><i class="fa-solid fa-about-us"></i> Rólunk</a>
+        <a href="{{ route('home') }}#milestones"><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
         <a href="{{ route('articles.search') }}"><i class="fa-solid fa-newspaper"></i> Cikkek</a>
         <a class="btn btn-primary" href="./download.php">Letöltés</a>
     </nav>
