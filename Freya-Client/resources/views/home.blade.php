@@ -31,40 +31,20 @@
 </div>
 <main>
     <div class="content-container">
-        <div>
-            <h2>Rólunk (féle)</h2>
+        <section>
+            <h2>Rólunk</h2>
+            <h3>Célunk</h3>
             <p>
-                "Discover the wonders of greenhouse gardening with comprehensive guides and resources. From choosing the
-                perfect greenhouse to designing a functional layout, Green House got you covered. Green House expert
-                tips will help optimize sunlight exposure, maintain the ideal temperature, and create the perfect
-                microclimate for your plants' growth."
-            </p>
-
-            <p>
-                ezt loptam valahonnan és ez ad a fejemben egy konkrétabb irányt mert szerintem elég zavaros még hogy
-                kiknek szól az appunk (meg így az egész persze).
-                lehetne hobbikertészeknek kinda? meg ilyen plant fanatics
+                A Freya's Garden célja egy önfenntartó, egészséges közösség alapítása és fenntartása az otthoni kertek működéséért a városokban.
             </p>
             <p>
-                akkor viszont mindenképp jobb lenne a weben forum féle. esetleg akkor az appban egy egy növénynél
-                lehetne a csatlakozó forumokhoz linkelni. Így ez talán jobb is mintha egy-egy care guidehez linkelnénk
-                ami egy full on cikk az oldalon. Ha a közösség írhat cikkeket ahogy beszéltük, akkor az már amúgy is
-                majdnem forum. Annyi persze hogy egy forumnál kellenek kommentek is.
+                Manapság nagyon sok háztartásban megoldható lenne egy konyhakert vagy akár egy kis ültetvény fenntartása. A Freya's Garden lehetővé teszi, elősegíti ezeknek működését, megjelenését, fenntartását.
             </p>
+            <h3>A projekt</h3>
             <p>
-                a marketplace így is működik meg lehet elég közösségi dolog.
+                Az ötlet megfogalmazása során nagy szerepet játszott az, hogy egy valós problémát oldjunk meg. A környezetvédelem, és az önfenntarthatóság mind olyan témák, melyek valós problémákkal foglalkoznak, és valamennyire mindenki számára fontosok. Viszont mindezzel foglalkozni kimerítő reménytelen feladat lehet, főleg manapság. Ezért mi kisebb léptékben gondolkoztunk. Tudatos, jóindulatú közösségek megteremtésével egy nagyobb társadalmi változás első, kis lépéseinek adunk lehetőséget. Persze ez nem teljes megoldás, sokkal több faktor sokkal nagyobb léptékben változtatja környezetünket. Annyi viszont biztos, hogy a mindennapjainkban pozitív változást tud előidézni egy olyan kezdeményezés mint a mi projektünk.
             </p>
-            <p>
-                a nagyobb green dologgal van igazából a gond, ezzel a várostervezős-legyen zöldebb a város történettel.
-                Nem látom még mindig hogy hogyan lehetne összekötni a kettőt. Az úgy nem annyira jó hogy nehezen lehet
-                elmondani két mondatban mi a projektünk.
-            </p>
-            <p>
-                esetleg a reduce food waste lehetne, és akkor dísznövényekről és konyhakertekről is szó van kinda
-            </p>
-            <p>így ezek a gondolataim most</p>
-        </div>
-
+        </section>
 
         <div class="articles-strip">
             <div class="card">

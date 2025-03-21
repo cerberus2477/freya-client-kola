@@ -42,6 +42,15 @@
 
 }
 
+@font-face{
+    font-family: Nocturne;
+    src: url(../fonts/nocturne/nocturne/NocturneSerif/NocturneSerif-Regular.ttf);
+}
+
+h1, h2, h3, h4{
+    font-family: Nocturne;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -115,12 +124,12 @@ header::after {
 
 .header-title {
     font-size: var(--font-size-h1-header);
-    font-weight: bold;
 }
 
 .header-text {
     font-size: var(--font-size-lg);
 }
+
 
 
 /* ACCOMPLISHMENTS STRIP */
@@ -165,7 +174,10 @@ header::after {
     grid-column: span 4;
     text-align: left;
 }
-
+/*SECTIONS(Rólunk mainly)*/
+section{
+    padding: var(--padding-strip);
+}
 /* BUTTONS */
 .btn {
     padding: var(--padding-btn);
