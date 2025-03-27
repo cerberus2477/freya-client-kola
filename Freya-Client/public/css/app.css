@@ -23,6 +23,8 @@
     --padding-main-r1: 3rem 3rem 13rem 3rem;
     --padding-main-r2: 2rem 2rem 13rem 2rem;
     --padding-container: 2rem 4rem 1rem 4rem;
+    --padding-searchbar: 1.5rem 4rem 1.5rem 4rem;
+    --padding-filters: 2rem 2.5rem;
     --padding-strip: 2rem 0;
     --padding-btn: 0.5rem 1rem;
     --padding-card: 1rem 1.5rem;
@@ -55,6 +57,7 @@
 h1, h2, h3, h4{
     font-family: Nocturne;
     font-weight: bold;
+    width: 100%;
 }
 
 * {
@@ -300,8 +303,19 @@ nav {
 
 nav a {
     text-decoration: none;
-    padding: var(--padding-card);
+    padding: 3.3vh 2rem;
     display: block;
+    height: 100%;
+    margin: 0;
+    font-size: var(--font-size-sm);
+    letter-spacing: 1px;
+    color: var(--clr-white);
+    font-weight: light;
+}
+
+
+nav a:hover{
+    background-image: linear-gradient(var(--clr-nav), rgba(0, 0, 0, 0));
 }
 
 /* nav a::after {
@@ -313,14 +327,16 @@ nav a {
     height: 100%;
     z-index: 0;
 } */
-
-/* Hover effect for links */
-
 .nav-logo {
     margin-right: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+}
+.nav-logo:hover{
+    background-image: none;
 }
 
 .main-nav {
@@ -352,6 +368,7 @@ nav a {
     margin-right: 0;
     width: 4rem;
 }
+
 @media screen and (max-width: 800px) {
 
     .main-nav {
@@ -384,7 +401,6 @@ nav a {
     .nav-logo {
         margin-right: 0px;
         width: 100%;
-
         display: block !important;
     }
 
@@ -401,16 +417,6 @@ nav a {
     background-color: var(--clr-nav);
 }
 
-nav a {
-    margin: 0;
-    padding: 2.4vh 1em;
-    font-size: var(--font-size-sm);
-    letter-spacing: 1px;
-    color: var(--clr-white);
-    font-weight: light;
-
-    /* mix-blend-mode: difference; */
-}
 
 
 
@@ -603,6 +609,9 @@ form p {
 .filters-articles-container {
     display: flex;
     gap: 2rem;
+
+    /*checkbox color*/
+    accent-color: var(--clr-green);
 }
 
 /* Sidebar filter styling */
@@ -610,32 +619,56 @@ form p {
     width: 300px;
     min-width: 250px;
     background-color: var(--clr-dark-green);
-    padding: var(--padding-container);
+    padding: var(--padding-filters);
     color: var(--clr-bg);
     border-radius: var(--border-radius-m);
     height: fit-content;
     position: sticky;
     top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
-
+.filters h2, .filters h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
 /* Articles take remaining space */
 .articles-container {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Search bar styling */
 .searchbar-container {
     display: flex;
-    gap: 1rem;
-    margin-bottom: var(--gutter);
+    flex-direction: column;
     width: 100%;
-    padding: var(--padding-container);
-    border: 2px solid var(--clr-dark-green);
+    margin-bottom: var(--gutter);
+    padding: var(--padding-searchbar);
+    /*border: 2px solid var(--clr-dark-green);*/
     align-items: center;
 }
 
 .searchbar-container input[type="text"] {
     flex: 1;
+    margin: 0;
+}
+
+.searchbar{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    padding: var(--padding-searchbar);
+    align-items: center;
+}
+
+.searchbar-container label:hover, .searchbar-container input#deep:hover{
+    cursor: pointer;
 }
 
 .filter-toggle-btn {
@@ -742,7 +775,7 @@ form p {
     flex-wrap: wrap;
     flex-direction: row; */
     /* gap: 2vh; */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 1.5px solid var(--clr-article);
 }
 
 .category-container .filter-checkbox {
@@ -781,8 +814,25 @@ form p {
 
 
 /*Pages*/
-
-
+.pagination-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 3rem;
+}
+.pageSize-selection{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+select.pageSize{
+    width: 15%;
+    margin: 0;
+    text-align: center;
+    padding: var(--padding-btn);
+}
 
 
 /* ERROR */
@@ -824,4 +874,8 @@ form p {
     margin-top: 10px;
 }
 
-
+.no-result{
+    text-align: center;
+    width: 100%;
+    min-height: 10rem;
+}

@@ -18,16 +18,16 @@
         <div class="nav-first-row">
         <a class="nav-logo" href="{{ route('home') }}">
             <img src="{{ asset('img/LogoTransparentWhite244x244.png') }}" alt="logo">
-            Freya's Garden
+            <h3>Freya's Garden</h3>
         </a>
             <a href="#" class="btn btn-primary navbar-toggler" onclick="toggleNav();">
                 <span class="fa fa-bars"></span>
             </a>
         </div>
-        <a href="{{ route('home') }}#about"><i class="fa-solid fa-about-us"></i> Rólunk</a>
-        <a href="{{ route('home') }}#milestones"><i class="fa-solid fa-milestones"></i> Mérföldkövek</a>
-        <a href="{{ route('articles.search') }}"><i class="fa-solid fa-newspaper"></i> Cikkek</a>
-        <a class="btn btn-primary" href="./download.php">Letöltés</a>
+        <a href="{{ route('home') }}#about"> Rólunk</a>
+        <a href="{{ route('home') }}#milestones"> Mérföldkövek</a>
+        <a href="{{ route('articles.search') }}"> Cikkek</a>
+        
     </nav>
 
     @yield('content')
@@ -35,9 +35,10 @@
     <footer>
         <h1>Freya's Garden</h1>
         <p>&copy; 2024.12.07 Freya-Client Tábor Tünde </p>
-        <p>A projekt github oldala itt érhető el: <a
-                href="https://github.com/stars/cerberus2477/lists/freya-s-garden">Freya's Garden Github</a> <a
-                href="https://github.com/OOGGZZII/plamnt">Plamnt</a>
+        <p>A projekt github oldala: <a
+                href="https://github.com/stars/cerberus2477/lists/freya-s-garden" target="_blank">Freya's Garden Github</a> <a
+                href="https://github.com/OOGGZZII/plamnt" target="_blank">Plamnt</a>
+                
         </p>
     </footer>
 </body>

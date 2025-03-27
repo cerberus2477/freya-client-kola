@@ -7,9 +7,8 @@
                                         the image should look like a typical header image, full width, not repeating -->
 <header class="header-main">
     <h1 class="header-title">Freya's Garden</h1>
-    <p class="header-text">catchphrase lorem ipsum dolor sit amet</p>
-    <button class="btn btn-primary">Letöltés</button>
-    <button class="btn btn-green">Letöltés</button>
+    <p class="header-text">Plants 'n such</p>
+    <a class="btn btn-primary" href="https://github.com/stars/cerberus2477/lists/freya-s-garden" target="_blank">GitHub</a>
 </header>
 
 

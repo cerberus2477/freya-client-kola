@@ -34,13 +34,19 @@ class ArticleController extends Controller
         // Collect all parameters for the API request
         $parameters = $request->only(['q', 'deep', 'type', 'plant', 'after', 'before', 'category', 'pageSize']);
 
+
         if ($request->has('page')) {
             $parameters['page'] = $request->query('page');
         }
 
+        //Filter articles with no plants
+        if ($request->has('plant') && $request->query('plant') == "Nincs növény") {
+            $parameters['plant'] = "null";
+        }
+
         // Make API request
         try {
-            $response = Http::freyarest()->get('articles/search', $parameters);
+            $response = Http::freyarest()->get('articles', $parameters);
 
             if ($response->failed()) {
                 throw new \Exception("Unable to fetch matching articles. Please try again later.");
@@ -56,10 +62,20 @@ class ArticleController extends Controller
             ]);
         }
 
-        // Fetch filter options from the API - get only the name field in data
-        $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
-        $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
-        $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
+        // Fetch responses from api
+        $typesResponse = Http::freyarest()->get('types')->json();
+        $plantsResponse = Http::freyarest()->get('plants')->json();
+        $categoriesResponse = Http::freyarest()->get('categories')->json();
+
+        //get only the name field in data
+        $types = array_map(fn($type) => $type['name'], $typesResponse['data'] ?? []);
+        $plants = array_map(fn($plant) => $plant['name'], $plantsResponse['data'] ?? []);
+        $categories = array_map(fn($category) => $category['name'], $categoriesResponse['data'] ?? []);
+
+        // // Fetch filter options from the API - get only the name field in data
+        // $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
+        // $plants = array_column(Http::freyarest()->get('plants')->json()['data'] ?? [], 'name');
+        // $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
         
         // Return view with data
         return view('articles.search', compact('types', 'plants', 'categories', 'articles', 'pagination'));
