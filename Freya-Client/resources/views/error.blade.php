@@ -8,11 +8,13 @@
     </header>
     <main>
         <div class="container">
-            <section class="errorpage">
-                <h1 class="text-danger">@yield('code')</h1>
-                <h2> @yield('message')</h2>
-                <p>Upsz! Valami probléma adódott.</p>
-                <a class="btn btn-primary" href="{{ route('home') }}">Vissza a főoldalra</a>
+            <section class="errorpage main-padded">
+                <img src="{{ asset('img/NotFound.png') }}" alt="" class="error-img">
+                    <div class="error-message">
+                        <h1 class="text-danger">@yield('code')</h1>
+                        <h2> @yield('message')</h2>
+                        <a class="btn btn-primary" href="{{ route('home') }}">Vissza a főoldalra</a>
+                    </div>
             </section>
         </div>
     </main>

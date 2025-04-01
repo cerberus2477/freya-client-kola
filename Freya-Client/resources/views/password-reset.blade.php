@@ -5,7 +5,7 @@
         <h1 class="header-title">Jelszó megváltoztatás</h1>
     </header>
     <main>
-        <div class="container">
+        <div class="container main-padded">
             @if (!session('status'))
                 <form id="passwordResetForm" method="POST" action="{{ route('password.update') }}">
                     @csrf

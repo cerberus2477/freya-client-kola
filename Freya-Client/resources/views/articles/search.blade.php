@@ -18,7 +18,7 @@
     <x-error-message :message="$errorMessage" />
     @else
 
-    <form class="content-container filters-articles-container" method="GET" action="{{ route('articles.search') }}"
+    <form class="content-container filters-articles-container main-padded" method="GET" action="{{ route('articles.search') }}"
         id="filter-form">
         <!-- only display filters if there has been a search  - hide them initially   -->
         @if (count(request()->except(['page', 'pageSize'])) > 0)

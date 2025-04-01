@@ -30,42 +30,48 @@
 </div>
 <main>
     <div class="content-container">
-
-        <div class="articles-strip">
-            <div class="card">
-                <h2>Friss cikkek</h2>
-                <a class="btn" href="{{ route('articles.search') }}">Többi cikk <i
-                        class="fa-solid fa-chevron-right"></i></a>
+        <section class="main-padded" id="fresh">
+            <h1>Friss cikkek</h1>
+            <div class="articles-strip">
+                @if (isset($errorMessage))
+                    <x-error-message :message="$errorMessage" />
+                @else
+                    @foreach ($articles as $article)
+                        <div class="card">
+                            <p>{{ $article['author'] }}</p>
+                            <p>{{ $article['updated_at'] }}</p>
+                            <h3><a href="{{ route('articles.show', ['title' => $article['title']]) }}"
+                                    target="_blank">{{ $article['title'] }}</a>
+                            </h3>
+                            <p class="article-description">{{ $article['description'] }}</p>
+                            @if (isset($article['category']))
+                                <p>{{ $article['category'] }}</p>
+                            @endif
+                            <p>
+                            @if (isset($article['plant_name']))
+                                {{ $article['plant_name'] }}
+                            @endif
+                            @if (isset($article['type']))
+                                ({{ $article['type'] }})
+                            @endif
+                            </p>
+                            
+                        </div>
+                    @endforeach
+                    <div class="card">
+                        <a class="btn" href="{{ route('articles.search') }}">
+                            Többi cikk 
+                            <i class="fa-solid fa-chevron-right">
+                            </i>
+                        </a>
+                    </div>
+                @endif
             </div>
-            @if (isset($errorMessage))
-            <x-error-message :message="$errorMessage" />
-            @else
-            @foreach ($articles as $article)
-            <div class="card">
-                <p>{{ $article['author'] }}</p>
-                <p>{{ $article['updated_at'] }}</p>
-                <h3><a href="{{ route('articles.show', ['title' => $article['title']]) }}"
-                        target="_blank">{{ $article['title'] }}</a>
-                </h3>
-                <p class="article-description">{{ $article['description'] }}</p>
-                @if (isset($article['category']))
-                    <p>{{ $article['category'] }}</p>
-                @endif
-                <p>
-                @if (isset($article['plant_name']))
-                    {{ $article['plant_name'] }}
-                @endif
-                @if (isset($article['type']))
-                    ({{ $article['type'] }})
-                @endif
-                </p>
-                
-            </div>
-            @endforeach
-            @endif
-        </div>
+        </section>
 
-        <section  id="about">
+
+
+        <section class="main-padded" id="about">
             <h2>Rólunk</h2>
             <h3>Célunk</h3>
             <p>
@@ -86,7 +92,7 @@
             <h3>Készítők</h3>
             <p>
                 Három Boronkay-s diák vagyunk, Nacsa Levente, Szabolics András és Tábor Tünde.
-                Ez a projekt a Technikusi évünk során alkészített egész éves mestermunkánk, szakmai vizsgánk nagy része.
+                Ez a projekt a Technikusi évünk során elkészített egész éves mestermunkánk, szakmai vizsgánk nagy része.
             </p>
         </section>
 
