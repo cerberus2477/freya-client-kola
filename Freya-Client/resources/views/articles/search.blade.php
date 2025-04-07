@@ -18,16 +18,16 @@
     <x-error-message :message="$errorMessage" />
     @else
 
-    <form class="content-container filters-articles-container main-padded" method="GET" action="{{ route('articles.search') }}"
+    <form class="filters-articles-container main-padded" method="GET" action="{{ route('articles.search') }}"
         id="filter-form">
         <!-- only display filters if there has been a search  - hide them initially   -->
         @if (count(request()->except(['page', 'pageSize'])) > 0)
 
-        <button id="filter-toggle-btn" class="btn filter-toggle-btn">
+        <button id="filter-toggle-btn" class="btn filter-toggle-btn" type="button">
             <i class="fa-solid fa-filter"></i> Szűrők
         </button>
 
-        <div class="filters">
+        <div class="filters" id="filters">
             <h2>Szűrők</h2>
 
             <div class="category-container">
@@ -78,7 +78,7 @@
             <!-- clearing the filters preserves the pagesize, q, and the deep parameter -->
             <!-- TODO: adding deep is untested, maybe it should be something like "has" with deep -->
                 <a class="btn"
-                    ref="{{ route('articles.search', ['q' => request('q'), 'pageSize' => request('pageSize'), 'deep' => request()->has('deep')]) }}">
+                    href="{{ route('articles.search', ['q' => request('q'), 'pageSize' => request('pageSize'), 'deep' => request()->has('deep')]) }}">
                     Szűrők törlése
                 </a>
         </div>

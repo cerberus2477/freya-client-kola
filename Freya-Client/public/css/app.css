@@ -2,37 +2,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --clr-bg: #fcf6ee;
-    --clr-bg-light: #fffdf8;
+    --clr-bg: #f9f4e9;
+    --clr-light-bg: #fffdf8;
     --clr-article: #e6ded4;
     --clr-text: #181818;
     --clr-orange: #d15439;
     --clr-burgundy: #711815;
-    --clr-green: #426B1F;
-    --clr-green-2: #81D366;
-    --clr-green-3: #DFF29D;
-    --clr-dark-green: #16400f;
-    --clr-gray: rgb(153, 162, 148);
-    /* --clr-bg-light: #fcf6ee; */
-    /* --clr-highlight: rgb(113, 147, 242);
-    --clr-error: rgb(255, 67, 67);
-    --clr-success: rgb(12, 211, 38); */
-
+    --clr-green: #426b1f;
+    --clr-light-green-1: #f6ffd5;
+    --clr-light-green-2: #DFF29D;
+    --clr-light-green-3: #a7d366;
+    --clr-dark-green: #27400f;
+    --clr-muted-green: #737b5e;
+    --clr-gray: #a5a7a3;
     --clr-nav: var(--clr-text);
+    --clr-white: #fafaf7;
 
-    --padding-main: 5rem 0rem 15rem 0rem;
+
+    --padding-main: 5rem 0rem 25vw 0rem;
+    --padding-main-r1: 3rem 0rem 35vw 0rem;
+    --padding-main-r2: 2rem 0rem 60vw 0rem;
     --padding-main-padded: 0rem 5rem 0rem 5rem;
-    --padding-main-r1: 3rem 3rem 13rem 3rem;
-    --padding-main-r2: 2rem 2rem 13rem 2rem;
+    --padding-main-padded-r1: 0rem 2rem 0rem 2rem;
+    --padding-main-padded-r2: 0rem 1rem 0rem 1rem;
     --padding-container: 2rem 4rem 1rem 4rem;
     --padding-searchbar: 1.5rem 4rem 1.5rem 4rem;
-    --padding-filters: 2rem 2.5rem;
+    --padding-filters: 0.75rem 2.5rem;
     --padding-strip: 2rem 0;
     --padding-btn: 0.5rem 1rem;
     --padding-card: 1rem 1.5rem;
     --padding-article-content: 5vh 5vw 0vh;
 
-    --gutter: 2rem;
+    --gutter: 1.8rem;
 
     /* Border radius values */
     --border-radius-s: 4px;
@@ -95,8 +96,28 @@ body {
     background: var(--clr-green);
 }
 
+
+::-webkit-scrollbar{
+  width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--clr-text);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-muted-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-dark-green);
+}
+
+
 .main-padded {
     padding: var(--padding-main-padded);
+    width: 100%;
 }
 
 main {
@@ -108,10 +129,16 @@ main {
     main {
         padding: var(--padding-main-r1);
     }
+    .main-padded{
+        padding: var(--padding-main-padded-r1);
+    }
 }
 @media screen and (max-width: 600px) {
     main {
         padding: var(--padding-main-r2);
+    }
+    .main-padded{
+        padding: var(--padding-main-padded-r2);
     }
 }
 footer {
@@ -121,6 +148,22 @@ footer {
     bottom: 0;
     width: 100%;
     position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer h1{
+    width: 100%;
+    font-size: 10vw;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+@media screen and (max-width: 900px) {
+    footer h1{
+        font-size: 7vw;
+    }
 }
 
 /* HEADER */
@@ -214,11 +257,12 @@ header::after {
 
 .card {
     padding: 1rem;
-    background: var(--clr-bg-light);
+    background-color: var(--clr-light-bg);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-radius: 0.2rem;
 }
 
 
@@ -328,7 +372,6 @@ a {
 nav {
     /* background-color: var(--clr-bg); */
     padding: 0 5vw;
-    color: var(--clr-bg);
 }
 
 nav a {
@@ -451,7 +494,10 @@ nav a:hover{
     background-color: var(--clr-nav);
 }
 
-
+#about{
+    background-color: var(--clr-dark-green);
+    color: var(--clr-bg);
+}
 
 
 
@@ -493,7 +539,7 @@ form input[type="password"],
 form input[type="date"],
 form input[type="number"] {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.6rem;
     margin-bottom: var(--gutter);
     border: 1px solid var(--clr-dark-green);
     border-radius: 4px;
@@ -638,6 +684,8 @@ form p {
 .content-container {
     max-width: 1280px;
     margin-inline: auto;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
 }
 
 .filters-articles-container {
@@ -658,12 +706,12 @@ form p {
     border-radius: var(--border-radius-m);
     height: fit-content;
     position: sticky;
-    top: 1rem;
+    top: 6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 .filters h2, .filters h3 {
     text-align: center;
@@ -701,8 +749,21 @@ form p {
     align-items: center;
 }
 
+input#search-text{
+    background-color: var(--clr-light-bg);
+}
+
 .searchbar-container label:hover, .searchbar-container input#deep:hover{
     cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+    .searchbar{
+        padding: 0;
+    }
+    .searchbar-container{
+        padding: 1rem;
+    }
 }
 
 .filter-toggle-btn {
@@ -722,7 +783,33 @@ form p {
 }
 
 /* Show button only on smaller screens */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 900px){
+    .filter-toggle-btn {
+        display: block;
+    }
+
+    .filters {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--clr-dark-green);
+        padding: var(--padding-container);
+        overflow-y: auto;
+        z-index: 99;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .filters.active {
+        display: block;
+        transform: translateX(0);
+    }
+}
+
+@media screen and (max-height: 900px){
     .filter-toggle-btn {
         display: block;
     }
@@ -757,7 +844,6 @@ form p {
 
 
 
-
 /* ARTICLES -----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 .results {
@@ -767,7 +853,7 @@ form p {
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.7rem;
     background-color: var(--clr-bg);
 }
 
@@ -802,11 +888,6 @@ form p {
 
 /*FILTERS*/
 .category-container {
-    /* padding: 1vh;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row; */
-    /* gap: 2vh; */
     border-bottom: 1.5px solid var(--clr-article);
 }
 
