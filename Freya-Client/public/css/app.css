@@ -169,7 +169,7 @@ footer h1{
 /* HEADER */
 header {
     position: relative;
-    background: url("../img/hero1.webp") no-repeat center/cover;
+    background: url("../img/hero2.jpeg") no-repeat center/cover;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,9 +249,8 @@ header::after {
 /* ARTICLES STRIP */
 .articles-strip {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-    border-collapse: collapse;
     padding: var(--padding-strip);
 }
 
@@ -260,7 +259,7 @@ header::after {
     background-color: var(--clr-light-bg);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     border-radius: 0.2rem;
 }
@@ -499,7 +498,12 @@ nav a:hover{
     color: var(--clr-bg);
 }
 
+#photo .content-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
+}
 
 
 
@@ -864,7 +868,7 @@ input#search-text{
 }
 
 .highlight {
-    background-color: var(--clr-green-2);
+    background-color: var(--clr-light-green-3);
     font-weight: bold;
 }
 

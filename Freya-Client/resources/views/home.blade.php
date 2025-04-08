@@ -3,8 +3,6 @@
 @section('title', "Freya's Garden ⸙ Főoldal")
 
 @section('content')
-<!-- the header should have a black overlay (::after)
-                                        the image should look like a typical header image, full width, not repeating -->
 <header class="header-main">
     <h1 class="header-title">Freya's Garden</h1>
     <p class="header-text">Plants 'n such</p>
@@ -12,8 +10,6 @@
 </header>
 
 
-<!-- this be should page-wide a strip, evenly spaced out -->
-<!-- number should be big, the description below that and smaller -->
 <div class="accomplishments-strip" id="milestones">
     <div>
         <span>9999999</span> km3 <br> Megtakarított Co2
@@ -58,15 +54,13 @@
                                 
                             </div>
                         @endforeach
-                        <div class="card">
-                            <a class="btn" href="{{ route('articles.search') }}">
-                                Többi cikk 
-                                <i class="fa-solid fa-chevron-right">
-                                </i>
-                            </a>
-                        </div>
                     @endif
                 </div>
+                <a class="btn" href="{{ route('articles.search') }}">
+                    Többi cikk 
+                    <i class="fa-solid fa-chevron-right">
+                    </i>
+                </a>
             </div>
         </section>
 
