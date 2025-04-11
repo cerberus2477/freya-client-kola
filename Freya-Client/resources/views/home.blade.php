@@ -96,7 +96,7 @@
         <section class="main-padded" id="photo">
             <div class="content-container">
                 <h2>Kép a készítőkről</h2>
-                <img src="{{ asset('img/long-bacon2.jpg') }}" alt="">
+                <img src="{{ asset('img/FreyaCsopkep.jpg') }}" alt="">
             </div>
         </section>
 </main>

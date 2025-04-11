@@ -43,7 +43,7 @@
     --font-size-default: 1.25rem;
     --font-size-lg: 1.5rem;
     --font-size-sm: 1rem;
-    --font-size-h1-header: 4rem;
+    --font-size-h1-header: 5rem;
 
     /* Line heights */
     --line-height-default: 1.5;
@@ -508,32 +508,6 @@ nav a:hover{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* FORM ---------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /* Input Fields */
@@ -634,47 +608,6 @@ form p {
     margin: 1rem 0;
     line-height: 1.5;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -838,12 +771,6 @@ input#search-text{
         transform: translateX(0);
     }
 }
-
-
-
-
-
-
 
 
 
