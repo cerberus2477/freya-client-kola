@@ -68,9 +68,26 @@ class ArticleController extends Controller
         $categoriesResponse = Http::freyarest()->get('categories')->json();
 
         //get only the name field in data
-        $types = array_map(fn($type) => $type['name'], $typesResponse['data'] ?? []);
-        $plants = array_map(fn($plant) => $plant['name'], $plantsResponse['data'] ?? []);
-        $categories = array_map(fn($category) => $category['name'], $categoriesResponse['data'] ?? []);
+        $types = [];
+        foreach ($typesResponse as $type) {
+            if (isset($type['name'])) {
+                $types[] = $type['name'];
+            }
+        }
+        
+        $plants = [];
+        foreach ($plantsResponse as $plant) {
+            if (isset($plant['name'])) {
+                $plants[] = $plant['name']; // Extract the plant name
+            }
+        }
+
+        $categories = [];
+        foreach ($categoriesResponse as $categorie) {
+            if (isset($categorie['name'])) {
+                $categories[] = $categorie['name'];
+            }
+        }
 
         // // Fetch filter options from the API - get only the name field in data
         // $types = array_column(Http::freyarest()->get('types')->json()['data'] ?? [], 'name');
@@ -78,6 +95,12 @@ class ArticleController extends Controller
         // $categories = array_column(Http::freyarest()->get('categories')->json()['data'] ?? [], 'name');
         
         // Return view with data
+        //dd($typesResponse, $plantsResponse, $categoriesResponse);
+        Log::debug('TypesResponse:', $typesResponse);
+        Log::debug('PlantsResponse:', $plantsResponse);
+        Log::debug('Plants:', $plants);
+        Log::debug('Categories:', $categories);
+        Log::debug('CategoriesResponse:', $categoriesResponse);
         return view('articles.search', compact('types', 'plants', 'categories', 'articles', 'pagination'));
     }
     

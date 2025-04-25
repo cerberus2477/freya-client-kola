@@ -23,65 +23,66 @@
         <!-- only display filters if there has been a search  - hide them initially   -->
         @if (count(request()->except(['page', 'pageSize'])) > 0)
 
-        <button id="filter-toggle-btn" class="btn filter-toggle-btn" type="button">
-            <i class="fa-solid fa-filter"></i> Szűrők
-        </button>
+            <button id="filter-toggle-btn" class="btn filter-toggle-btn" type="button">
+                <i class="fa-solid fa-filter"></i> Szűrők
+            </button>
 
-        <div class="filters" id="filters">
-            <h2>Szűrők</h2>
+            <div class="filters" id="filters">
+                <h2>Szűrők</h2>
 
-            <div class="category-container">
-                <h3>Növény alapján</h3>
+                <div class="category-container">
+                    <h3>Növény alapján</h3>
 
-                <!-- TODO: this can be a datalist too (searchable dropdown) -->
-                <label for="type">Növény típusa:</label>
-                <select name="type" id="type" class="filter-dropdown" onchange="this.form.submit()">
-                    <option value="">Válassz típust</option>
-                    @foreach ($types as $type)
-                        <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}
+                    <!-- TODO: this can be a datalist too (searchable dropdown) -->
+                    <label for="type">Növény típusa:</label>
+                    <select name="type" id="type" class="filter-dropdown" onchange="this.form.submit()">
+                        <option value="">Válassz típust</option>
+                        @foreach ($types as $type)
+                            <option value="{{ $type }}" {{ request('type') === $type ? 'selected' : '' }}>
+                                {{ $type }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <label for="plant">Növény neve:</label>
+                    <input type="text" name="plant" id="plant" placeholder="Válassz növényt" list="plants"
+                        value="{{ request('plant') }}" onblur="this.form.submit()">
+
+                    <datalist id="plants">
+                        @foreach ($plants as $plant)
+                            <option value="{{ $plant }}">{{ $plant }}</option>
+                        @endforeach
+                        <option value="Nincs növény">Nincs növény</option>
+                    </datalist>
+                </div>
+
+                <div class="category-container">
+                    <h3>Cikk alapján</h3>
+                    <label for="after">Dátum -tól:</label>
+                    <input type="date" name="after" id="after" value="{{ request('after') }}" onchange="this.form.submit()">
+
+                    <label for="before">Dátum -ig:</label>
+                    <input type="date" name="before" id="before" value="{{ request('before') }}"
+                        onchange="this.form.submit()">
+
+                    <label for="category">Cikk fajtája:</label>
+                    <select name="category" id="category" class="filter-dropdown" onchange="this.form.submit()">
+                        <option value="">Válassz kategóriát</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                            {{ $category }}
                         </option>
-                    @endforeach
-                </select>
+                        @endforeach
+                    </select>
+                </div>
 
-                <label for="plant">Növény neve:</label>
-                <input type="text" name="plant" id="plant" placeholder="Válassz növényt" list="plants"
-                    value="{{ request('plant') }}" onblur="this.form.submit()">
-
-                <datalist id="plants">
-                    @foreach ($plants as $plant)
-                        <option value="{{ $plant }}">{{ $plant }}</option>
-                    @endforeach
-                    <option value="Nincs növény">Nincs növény</option>
-                </datalist>
+                <!-- clearing the filters preserves the pagesize, q, and the deep parameter -->
+                <!-- TODO: adding deep is untested, maybe it should be something like "has" with deep -->
+                    <a class="btn"
+                        href="{{ route('articles.search', ['q' => request('q'), 'pageSize' => request('pageSize'), 'deep' => request()->has('deep')]) }}">
+                        Szűrők törlése
+                    </a>
             </div>
-
-            <div class="category-container">
-                <h3>Cikk alapján</h3>
-                <label for="after">Dátum -tól:</label>
-                <input type="date" name="after" id="after" value="{{ request('after') }}" onchange="this.form.submit()">
-
-                <label for="before">Dátum -ig:</label>
-                <input type="date" name="before" id="before" value="{{ request('before') }}"
-                    onchange="this.form.submit()">
-
-                <label for="category">Cikk fajtája:</label>
-                <select name="category" id="category" class="filter-dropdown" onchange="this.form.submit()">
-                    <option value="">Válassz kategóriát</option>
-                    @foreach ($categories as $category)
-                    <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
-                        {{ $category }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- clearing the filters preserves the pagesize, q, and the deep parameter -->
-            <!-- TODO: adding deep is untested, maybe it should be something like "has" with deep -->
-                <a class="btn"
-                    href="{{ route('articles.search', ['q' => request('q'), 'pageSize' => request('pageSize'), 'deep' => request()->has('deep')]) }}">
-                    Szűrők törlése
-                </a>
-        </div>
         @endif
 
 
@@ -160,5 +161,6 @@
             </div>
         </div>
         @endif
+    </form>
 </main>
 @endsection
