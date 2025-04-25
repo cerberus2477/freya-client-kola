@@ -296,6 +296,13 @@ h3 a:hover{
     text-align: center;
 }
 
+
+.article-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media screen and (max-width: 1100px) {
     .articles-strip {
         grid-template-columns: 1fr;
@@ -860,6 +867,13 @@ input#search-text{
     padding: var(--padding-article-content);
 }
 
+.article-content img{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 700px;
+    height: auto;
+}
 
 /*Pages*/
 .pagination-buttons{

@@ -20,13 +20,14 @@
         @endif
     </div>
     <main>
-        <div class="container">
+        <div class="container main-padded article-container">
             @if (isset($errorMessage))
                 <x-error-message :message="$errorMessage" />
             @else
             
                 
                 <div class="article-content">
+                    <img src="{{ asset('img/FreyaCsopKep.jpg') }}" alt="Article Image" class="article-image">
                     <p class="article-description">
                         {{ $article['description'] }}
                     </p>
