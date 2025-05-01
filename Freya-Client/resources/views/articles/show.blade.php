@@ -27,7 +27,6 @@
             
                 
                 <div class="article-content">
-                    <img src="{{ asset('img/FreyaCsopKep.jpg') }}" alt="Article Image" class="article-image">
                     <p class="article-description">
                         {{ $article['description'] }}
                     </p>
