@@ -10,18 +10,15 @@
 </header>
 
 
-<div class="accomplishments-strip" id="milestones">
+<div class="accomplishments-strip" id="milestones"> 
     <div>
-        <span>9999999</span> km3 <br> Megtakarított Co2
+        <span>462</span> <br> GitHub Commit
     </div>
     <div>
-        <span>100.000</span> <br> Regisztrált felhasználó
+        <span>151</span> <br> Lezárt github issue
     </div>
     <div>
-        <span>22.000</span> <br>Eladás/Csere
-    </div>
-    <div>
-        <span>numbers</span> <br> mmmmmhmmmmm fincsi
+        <span>3</span> <br> Készítő
     </div>
 </div>
 <main>
